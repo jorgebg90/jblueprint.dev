@@ -1,9 +1,9 @@
 ---
 title: "Como crear un blog con Spec Driven Design"
 status: "working-draft"
+last_updated: "2026-05-08"
 feature: "001-add-multilingual-support"
 created_at: "2026-05-08"
-last_updated: "2026-05-08"
 ---
 
 # Como crear un blog con Spec Driven Design
@@ -88,6 +88,18 @@ Document the real implementation journey of this blog using a Spec Driven Design
 - Route checks confirmed bilingual output in generated site.
 - SEO checks validated `hreflang` and `x-default` behavior per spec.
 - Non-blocking note captured: Sass/Minima deprecation warnings observed.
+
+### Step 6 - Blog documentation (completed)
+- Created bilingual blog posts documenting the entire Spec Driven Design workflow:
+  - English: `_posts/2026-05-08-como-crear-un-blog-con-spec-driven-design.markdown`
+  - Spanish: `_posts/2026-05-08-como-crear-un-blog-con-spec-driven-design-es.markdown`
+- Blog posts include:
+  - Journey narrative from specification to rollout
+  - All key decisions and their rationale
+  - Lessons learned and next steps
+  - Practical guidance for readers
+- Final build validation: Bilingual routes `/jekyll/speckit/...` and `/es/jekyll/speckit/...` generated correctly
+- SEO validation: `hreflang` tags correctly link bilingual post variants with `x-default` pointing to English version
 
 ## Decisions Log
 
