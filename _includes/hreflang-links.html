@@ -1,0 +1,18 @@
+{%- assign translation_key = page.translation_key -%}
+{%- if translation_key -%}
+  {%- assign base_path = page.url | replace_first: '/es/', '/' -%}
+  {%- if page.url == '/es/' -%}
+    {%- assign base_path = '/' -%}
+  {%- endif -%}
+
+  {%- assign en_href = base_path -%}
+  {%- if base_path == '/' -%}
+    {%- assign es_href = '/es/' -%}
+  {%- else -%}
+    {%- assign es_href = '/es' | append: base_path -%}
+  {%- endif -%}
+
+  <link rel="alternate" hreflang="en" HREF="{{ en_href }}">
+  <link rel="alternate" hreflang="es" HREF="{{ es_href }}">
+  <link rel="alternate" hreflang="x-default" HREF="{{ en_href }}">
+{%- endif -%}
