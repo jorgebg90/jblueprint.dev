@@ -5,6 +5,7 @@ date: 2026-05-08 12:00:00 +0200
 categories: jekyll speckit design
 lang: en
 translation_key: how-to-spec-driven-design
+translated_url: /es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html
 permalink: /jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html
 ---
 

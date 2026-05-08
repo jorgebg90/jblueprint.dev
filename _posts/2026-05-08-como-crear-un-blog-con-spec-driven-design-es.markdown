@@ -5,6 +5,7 @@ date: 2026-05-08 12:00:00 +0200
 categories: jekyll speckit design
 lang: es
 translation_key: how-to-spec-driven-design
+translated_url: /jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html
 permalink: /es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html
 ---
 
@@ -186,4 +187,5 @@ Si estás construyendo un blog Jekyll y considerando soporte multilingüe, sigue
 ---
 
 **Este post es parte de una serie sobre construir y mantener jblueprint.dev usando prácticas modernas de especificación y diseño.**
+
 

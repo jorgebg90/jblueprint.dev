@@ -11,16 +11,31 @@
   {%- assign has_en_equivalent = true -%}
   {%- assign has_es_equivalent = true -%}
 
-  {%- assign base_path = page.url | replace_first: '/es/', '/' -%}
-  {%- if page.url == '/es/' -%}
-    {%- assign base_path = '/' -%}
-  {%- endif -%}
-
-  {%- assign en_target = base_path -%}
-  {%- if base_path == '/' -%}
-    {%- assign es_target = '/es/' -%}
+  {%- if page.translated_url -%}
+    {%- comment -%}
+      Posts with different slugs per language use an explicit translated_url in front matter.
+    {%- endcomment -%}
+    {%- if current_lang == 'en' -%}
+      {%- assign en_target = page.url -%}
+      {%- assign es_target = page.translated_url -%}
+    {%- else -%}
+      {%- assign en_target = page.translated_url -%}
+      {%- assign es_target = page.url -%}
+    {%- endif -%}
   {%- else -%}
-    {%- assign es_target = '/es' | append: base_path -%}
+    {%- comment -%}
+      Pages that share the same slug derive URLs by path prefix manipulation.
+    {%- endcomment -%}
+    {%- assign base_path = page.url | replace_first: '/es/', '/' -%}
+    {%- if page.url == '/es/' -%}
+      {%- assign base_path = '/' -%}
+    {%- endif -%}
+    {%- assign en_target = base_path -%}
+    {%- if base_path == '/' -%}
+      {%- assign es_target = '/es/' -%}
+    {%- else -%}
+      {%- assign es_target = '/es' | append: base_path -%}
+    {%- endif -%}
   {%- endif -%}
 {%- endif -%}
 
