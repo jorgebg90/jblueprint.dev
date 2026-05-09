@@ -1,5 +1,5 @@
 <!-- SPECKIT START -->
 For additional context about technologies to be used, project structure,
 shell commands, and other important information, read the current plan:
-`specs/001-add-multilingual-support/plan.md`
+`specs/002-add-minimal-mistakes-theme/plan.md`
 <!-- SPECKIT END -->

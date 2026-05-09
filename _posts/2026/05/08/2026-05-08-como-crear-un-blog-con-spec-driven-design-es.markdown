@@ -189,3 +189,4 @@ Si estás construyendo un blog Jekyll y considerando soporte multilingüe, sigue
 **Este post es parte de una serie sobre construir y mantener jblueprint.dev usando prácticas modernas de especificación y diseño.**
 
 
+

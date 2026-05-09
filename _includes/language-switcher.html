@@ -1,5 +1,4 @@
 {%- assign current_lang = page.lang | default: site.active_lang | default: site.default_lang | default: 'en' -%}
-{%- assign locales = site.data.locales.locales -%}
 {%- assign translation_key = page.translation_key -%}
 
 {%- assign en_target = page.url -%}
@@ -39,25 +38,33 @@
   {%- endif -%}
 {%- endif -%}
 
-<nav class="language-switcher" aria-label="{{ site.data.messages.language_selector_label[current_lang] | default: 'Language' }}" data-language-switcher data-current-lang="{{ current_lang }}" data-target-en="{{ en_target | relative_url }}" data-target-es="{{ es_target | relative_url }}" data-has-equivalent-en="{{ has_en_equivalent }}" data-has-equivalent-es="{{ has_es_equivalent }}">
-  <span class="language-switcher__label">{{ site.data.messages.language_selector_label[current_lang] | default: 'Language' }}:</span>
-  {%- for locale in site.languages -%}
-    {%- assign locale_data = locales[locale] -%}
-    {%- if locale == 'en' -%}
-      {%- assign target_url = en_target | relative_url -%}
-    {%- else -%}
-      {%- assign target_url = es_target | relative_url -%}
-    {%- endif -%}
-    <a
-      href="{{ target_url }}"
-      lang="{{ locale }}"
-      hreflang="{{ locale }}"
-      data-language-option="{{ locale }}"
-      class="language-switcher__link{% if locale == current_lang %} is-active{% endif %}"
-      {% if locale == current_lang %}aria-current="true"{% endif %}
-    >
-      {{ locale_data.label | default: locale | capitalize }}
-    </a>
-  {%- endfor -%}
-</nav>
-
+<!-- Language toggle — EN | ES integrated into MM masthead nav bar -->
+<div
+  class="lang-switch"
+  role="navigation"
+  aria-label="Language"
+  data-language-switcher
+  data-current-lang="{{ current_lang }}"
+  data-target-en="{{ en_target | relative_url }}"
+  data-target-es="{{ es_target | relative_url }}"
+  data-has-equivalent-en="{{ has_en_equivalent }}"
+  data-has-equivalent-es="{{ has_es_equivalent }}"
+>
+  <a
+    href="{{ en_target | relative_url }}"
+    lang="en"
+    hreflang="en"
+    data-language-option="en"
+    class="lang-switch__btn{% if current_lang == 'en' %} is-active{% endif %}"
+    {% if current_lang == 'en' %}aria-current="true"{% endif %}
+  >EN</a>
+  <span class="lang-switch__sep" aria-hidden="true">|</span>
+  <a
+    href="{{ es_target | relative_url }}"
+    lang="es"
+    hreflang="es"
+    data-language-option="es"
+    class="lang-switch__btn{% if current_lang == 'es' %} is-active{% endif %}"
+    {% if current_lang == 'es' %}aria-current="true"{% endif %}
+  >ES</a>
+</div>

@@ -13,25 +13,41 @@
 # https://learnxinyminutes.com/docs/yaml/
 #
 # Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
+# These are used to personalize your site. Values are accessible in templates
+# via site.* variables.
 
-title: Your awesome title
-email: your-email@example.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+title: jblueprint.dev
+name: "Jorge Bluebird"
+email: ""
+description: >-
+  A bilingual Jekyll blog about software engineering, tools, and ideas.
+  Written in English and Spanish.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://jblueprint.dev" # the base hostname & protocol for your site
+
+# Minimal Mistakes theme settings
+theme: minimal-mistakes-jekyll
+minimal_mistakes_skin: default
+
+# Enable built-in Lunr search — renders the magnifying glass toggle in the masthead.
+search: true
+search_provider: lunr
+
+# Static BCP47 locale for MM's internal UI strings (date formats, accessibility labels).
+# DO NOT use for runtime locale detection — Polyglot's site.active_lang governs that.
+locale: en-US
+
+# Breadcrumbs must be disabled: MM breadcrumbs are not Polyglot locale-aware (R-005).
+breadcrumbs: false
+
+# Polyglot multilingual settings
 lang: en
 languages: ["en", "es"]
 default_lang: "en"
 parallel_localization: true
 
-# Keep only translatable content in Polyglot processing.
+# Files excluded from Polyglot localization (no locale-prefixed copies generated).
+# MM-generated assets replace the former minima asset entries.
 exclude_from_localization:
   - .git/
   - .github/
@@ -40,9 +56,12 @@ exclude_from_localization:
   - .vscode/
   - docs/
   - specs/
-  - assets/main.css
-  - assets/main.css.map
-  - assets/minima-social-icons.svg
+  # MM-generated static assets (R-002).
+  # Note: main.css is compiled from SCSS in the MM gem and is also output to /es/
+  # by Polyglot (known Polyglot + gem-SCSS behavior). Both locales load CSS correctly.
+  - assets/css/main.scss
+  - assets/css/main.css
+  - assets/js/main.min.js
   - Gemfile
   - Gemfile.lock
   - LICENSE
@@ -51,27 +70,26 @@ exclude_from_localization:
   - node_modules/
 
 # Build settings
-theme: minima
 plugins:
   - jekyll-feed
   - jekyll-polyglot
 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+# Suppress SASS deprecation warnings from MM gem dependencies (Dart Sass 3.0 compat warnings).
+# These originate in MM's vendored SCSS (breakpoint, susy, magnific-popup) and are not actionable.
+sass:
+  quiet_deps: true
+
+# Exclude from Jekyll processing entirely (not copied to _site).
+# specs/ is excluded to prevent Jekyll from processing spec markdown files
+# that contain MM-specific Liquid tags (include_cached) in code blocks.
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - specs/
