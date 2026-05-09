@@ -1,0 +1,58 @@
+---
+layout: default
+---
+{%- assign active_lang = page.lang | default: site.active_lang | default: site.default_lang | default: 'en' -%}
+{%- assign seen_translation_keys = '|' -%}
+{%- assign has_visible_posts = false -%}
+{%- assign skipped_collision_count = 0 -%}
+
+<div class="posts-index">
+  <header class="posts-index__header">
+    <h1 class="page-title">{{ page.title | default: 'Posts' }}</h1>
+  </header>
+
+  <ul class="post-list">
+    {%- for post in site.posts -%}
+      {%- assign post_lang = post.lang | default: '' | downcase -%}
+      {%- unless post_lang == active_lang -%}
+        {%- continue -%}
+      {%- endunless -%}
+
+      {%- assign post_translation_key = post.translation_key | default: '' | strip -%}
+      {%- assign should_render_post = true -%}
+
+      {%- if post_translation_key != '' -%}
+        {%- assign key_marker = '|' | append: post_translation_key | append: '|' -%}
+        {%- if seen_translation_keys contains key_marker -%}
+          {%- assign should_render_post = false -%}
+          {%- assign skipped_collision_count = skipped_collision_count | plus: 1 -%}
+        {%- else -%}
+          {%- assign seen_translation_keys = seen_translation_keys | append: post_translation_key | append: '|' -%}
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- if should_render_post -%}
+        {%- assign has_visible_posts = true -%}
+        <li>
+          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+          <h2>
+            <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+          </h2>
+          {%- if post.excerpt -%}
+            <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 160 }}</p>
+          {%- endif -%}
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+
+  {%- unless has_visible_posts -%}
+    {%- assign empty_messages = site.data.messages.posts_empty | default: empty -%}
+    <p class="posts-index__empty-state">{{ empty_messages[active_lang] | default: empty_messages.en | default: 'No posts available.' }}</p>
+  {%- endunless -%}
+
+  {%- if skipped_collision_count > 0 -%}
+    <!-- Editorial note: translation_key collisions were skipped for this locale. -->
+  {%- endif -%}
+</div>
+

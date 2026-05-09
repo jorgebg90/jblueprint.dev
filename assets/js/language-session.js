@@ -11,8 +11,8 @@
     var translationParam = url.searchParams.get("translation");
     if (translationParam !== "unavailable") return;
 
-    var requestedLocale = url.searchParams.get("requested") || "en";
-    var message = requestedLocale === "es"
+    var activeLocale = (document.documentElement.getAttribute("lang") || "en").toLowerCase();
+    var message = activeLocale === "es"
       ? (feedback.dataset.messageEs || feedback.dataset.messageEn)
       : feedback.dataset.messageEn;
 
@@ -25,6 +25,13 @@
     cleanUrl.searchParams.delete("requested");
     cleanUrl.searchParams.delete("fallback_attempt");
     window.history.replaceState({}, "", cleanUrl.toString());
+  }
+
+  function stripFallbackQueryParams(url) {
+    url.searchParams.delete("translation");
+    url.searchParams.delete("requested");
+    url.searchParams.delete("fallback_attempt");
+    return url;
   }
 
   function revealImageFallback(imageElement) {
@@ -85,16 +92,40 @@
     return targetPath + (query ? "?" + query : "") + url.hash;
   }
 
+  function resolveSwitcherTarget(targetLang) {
+    if (!languageSwitcher) return buildLocalePathFromCurrentUrl(targetLang);
+
+    var dataAttribute = targetLang === "es" ? "data-target-es" : "data-target-en";
+    var serverTarget = languageSwitcher.getAttribute(dataAttribute);
+    var translationMode = languageSwitcher.getAttribute("data-translation-mode");
+
+    if (serverTarget) {
+      var parsedServerTarget = new URL(serverTarget, window.location.origin);
+      var hasExplicitFallback = parsedServerTarget.searchParams.get("translation") === "unavailable";
+
+      if (hasExplicitFallback) {
+        // Trust the fallback: template confirmed no equivalent exists for this page.
+        return parsedServerTarget.pathname + parsedServerTarget.search + parsedServerTarget.hash;
+      }
+
+      if (translationMode === "explicit") {
+        // Template used page.translated_url — the target slug differs from the URL in the
+        // other locale (e.g. bilingual posts), so trust the server-provided target directly.
+        return parsedServerTarget.pathname + parsedServerTarget.search + parsedServerTarget.hash;
+      }
+    }
+
+    // Default: compute target from current browser URL (works for pages with matching slugs).
+    return buildLocalePathFromCurrentUrl(targetLang);
+  }
+
   // Fix language switcher href buttons to use current URL-aware targets.
   // This keeps navigation stable across apex/www hostnames while cert propagation finishes.
   function fixLanguageSwitcherHrefs() {
     if (!languageSwitcher) return;
 
-    var fallbackEn = languageSwitcher.getAttribute("data-target-en") || "/";
-    var fallbackEs = languageSwitcher.getAttribute("data-target-es") || "/es/";
-
-    var targetEn = buildLocalePathFromCurrentUrl("en") || fallbackEn;
-    var targetEs = buildLocalePathFromCurrentUrl("es") || fallbackEs;
+    var targetEn = resolveSwitcherTarget("en");
+    var targetEs = resolveSwitcherTarget("es");
 
     var links = languageSwitcher.querySelectorAll("a[data-language-option]");
     links.forEach(function (link) {
