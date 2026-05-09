@@ -26,7 +26,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://jblueprint.dev" # the base hostname & protocol for your site
 
 # Minimal Mistakes theme settings
-theme: minimal-mistakes-jekyll
+remote_theme: "mmistakes/minimal-mistakes"
 minimal_mistakes_skin: default
 
 # Enable built-in Lunr search — renders the magnifying glass toggle in the masthead.
@@ -73,6 +73,8 @@ exclude_from_localization:
 plugins:
   - jekyll-feed
   - jekyll-polyglot
+  - jekyll-include-cache
+  - jekyll-remote-theme
 
 # Suppress SASS deprecation warnings from MM gem dependencies (Dart Sass 3.0 compat warnings).
 # These originate in MM's vendored SCSS (breakpoint, susy, magnific-popup) and are not actionable.
