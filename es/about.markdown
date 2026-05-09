@@ -4,17 +4,16 @@ title: Acerca de
 lang: es
 translation_key: about
 permalink: /about/
+classes: about-page
+sidebar:
+  - title: Jorge Bluebird
+    image: /assets/images/profile-pic.jpg
+    image_alt: Retrato de Jorge Bluebird
+    text: |
+      Ingeniero de software enfocado en crear plataformas prácticas para desarrolladores y recursos bilingües de conocimiento.
+
+      **Ubicación:** Vigo, ES  
+      **LinkedIn:** [jorgebg90](https://www.linkedin.com/in/jorgebg90/)
 ---
 
-Este es el tema base de Jekyll. Puedes encontrar mas informacion sobre como personalizar tu tema de Jekyll, asi como documentacion de uso en [jekyllrb.com](https://jekyllrb.com/)
-
-Puedes encontrar el codigo fuente de Minima en GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
-
-Puedes encontrar el codigo fuente de Jekyll en GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-[jekyll-organization]: https://github.com/jekyll
-
+En este blog comparto notas de implementación, guías de migración y aprendizajes reales sobre herramientas cloud, automatización y sistemas de software mantenibles.

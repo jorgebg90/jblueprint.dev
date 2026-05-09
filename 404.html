@@ -23,3 +23,38 @@ layout: page
   <p><strong>Page not found :(</strong></p>
   <p>The requested page could not be found.</p>
 </div>
+
+<script>
+  (function () {
+    var url = new URL(window.location.href);
+    var baseUrl = "{{ site.baseurl | default: '' }}";
+    var normalizedPath = url.pathname;
+
+    if (baseUrl && normalizedPath.indexOf(baseUrl) === 0) {
+      normalizedPath = normalizedPath.slice(baseUrl.length) || "/";
+    }
+
+    if (!normalizedPath.endsWith("/")) {
+      normalizedPath += "/";
+    }
+
+    if (url.searchParams.get("fallback_attempt") === "1") {
+      return;
+    }
+
+    var redirectTarget = null;
+
+    if (normalizedPath === "/es/about/") {
+      redirectTarget = "{{ '/about/' | relative_url }}?translation=unavailable&requested=es&fallback_attempt=1";
+    }
+
+    if (normalizedPath === "/about/") {
+      redirectTarget = "{{ '/es/about/' | relative_url }}?translation=unavailable&requested=en&fallback_attempt=1";
+    }
+
+    if (redirectTarget) {
+      window.location.replace(redirectTarget);
+    }
+  })();
+</script>
+

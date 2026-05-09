@@ -1,0 +1,9 @@
+# Non-global masthead control literals (menu/search toggles).
+# Ownership boundary: global navigation labels live in _data/navigation.yml.
+en:
+  menu_label: "Toggle menu"
+  search_label: "Toggle search"
+es:
+  menu_label: "Alternar menú"
+  search_label: "Alternar búsqueda"
+

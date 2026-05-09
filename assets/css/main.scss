@@ -76,3 +76,25 @@ html { font-size: 14px; }                          // MM default: 16px
   font-size: $type-size-6;
   color: $text-color;
 }
+
+// ---------------------------------------------------------------------------
+// About page sidebar profile — render image as circular avatar in left column.
+// ---------------------------------------------------------------------------
+
+.about-page {
+  .sidebar img {
+    width: 170px;
+    height: 170px;
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid $border-color;
+    background-color: #f2f4f5;
+  }
+
+  .sidebar p,
+  .sidebar li {
+    overflow-wrap: anywhere;
+  }
+}
+
