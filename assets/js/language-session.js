@@ -55,15 +55,46 @@
     });
   }
 
-  // Fix language switcher href buttons to use data-target values.
-  // This corrects Polyglot's automatic href rewriting on localized pages.
+  // Build locale switch targets from the current URL first, then fallback to data-target values.
+  function buildLocalePathFromCurrentUrl(targetLang) {
+    var url = new URL(window.location.href);
+    var path = url.pathname;
+
+    // Normalize to avoid accidental double slashes while preserving root.
+    path = path.replace(/\/+/g, "/");
+    if (path !== "/" && path.endsWith("/")) {
+      path = path.slice(0, -1);
+    }
+
+    var isSpanishPath = path === "/es" || path.indexOf("/es/") === 0;
+    var basePath = isSpanishPath ? path.replace(/^\/es/, "") : path;
+    if (!basePath) {
+      basePath = "/";
+    }
+
+    var targetPath = targetLang === "es"
+      ? (basePath === "/" ? "/es/" : "/es" + basePath)
+      : basePath;
+
+    var params = new URLSearchParams(url.search);
+    params.delete("translation");
+    params.delete("requested");
+    params.delete("fallback_attempt");
+
+    var query = params.toString();
+    return targetPath + (query ? "?" + query : "") + url.hash;
+  }
+
+  // Fix language switcher href buttons to use current URL-aware targets.
+  // This keeps navigation stable across apex/www hostnames while cert propagation finishes.
   function fixLanguageSwitcherHrefs() {
     if (!languageSwitcher) return;
 
-    var targetEn = languageSwitcher.getAttribute("data-target-en");
-    var targetEs = languageSwitcher.getAttribute("data-target-es");
+    var fallbackEn = languageSwitcher.getAttribute("data-target-en") || "/";
+    var fallbackEs = languageSwitcher.getAttribute("data-target-es") || "/es/";
 
-    if (!targetEn || !targetEs) return;
+    var targetEn = buildLocalePathFromCurrentUrl("en") || fallbackEn;
+    var targetEs = buildLocalePathFromCurrentUrl("es") || fallbackEs;
 
     var links = languageSwitcher.querySelectorAll("a[data-language-option]");
     links.forEach(function (link) {
@@ -80,6 +111,4 @@
   setupProfileImageFallbacks();
   fixLanguageSwitcherHrefs();
 })();
-
-
 
