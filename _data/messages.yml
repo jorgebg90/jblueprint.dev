@@ -1,6 +1,11 @@
 translation_unavailable:
   en: Translation not available for the selected language.
-  es: Traduccion no disponible para el idioma seleccionado.
+  es: Traducción no disponible para el idioma seleccionado.
+
+posts_empty:
+  en: No posts are available in this language yet.
+  es: Aún no hay publicaciones disponibles en este idioma.
+
 language_selector_label:
   en: Language
   es: Idioma
