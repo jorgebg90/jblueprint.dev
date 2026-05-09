@@ -1,0 +1,65 @@
+{%- assign current_lang = page.lang | default: site.active_lang | default: site.default_lang | default: 'en' -%}
+{%- assign translation_key = page.translation_key -%}
+
+{%- assign en_target = '' -%}
+{%- assign es_target = '' -%}
+{%- assign has_en_equivalent = false -%}
+{%- assign has_es_equivalent = false -%}
+
+{%- if translation_key -%}
+  {%- assign has_en_equivalent = true -%}
+  {%- assign has_es_equivalent = true -%}
+
+  {%- if current_lang == 'en' -%}
+    {%- assign en_target = page.url -%}
+    {%- if page.url == '/' -%}
+      {%- assign es_target = '/es/' -%}
+    {%- else -%}
+      {%- assign es_target = '/es' | append: page.url -%}
+    {%- endif -%}
+  {%- elsif current_lang == 'es' -%}
+    {%- if page.url == '/' -%}
+      {%- assign en_target = '/' -%}
+      {%- assign es_target = '/es/' -%}
+    {%- else -%}
+      {%- assign en_target = page.url -%}
+      {%- assign es_target = '/es' | append: page.url -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- else -%}
+  {%- assign has_en_equivalent = true -%}
+  {%- assign has_es_equivalent = false -%}
+  {%- assign en_target = page.url -%}
+  {%- assign es_target = page.url | append: '?translation=unavailable&requested=es' -%}
+{%- endif -%}
+
+<!-- Language toggle — EN | ES integrated into MM masthead nav bar -->
+<div
+  class="lang-switch"
+  role="navigation"
+  aria-label="Language"
+  data-language-switcher
+  data-current-lang="{{ current_lang }}"
+  data-target-en="{{ en_target }}"
+  data-target-es="{{ es_target }}"
+  data-has-equivalent-en="{{ has_en_equivalent }}"
+  data-has-equivalent-es="{{ has_es_equivalent }}"
+>
+  <a
+    href="#"
+    lang="en"
+    hreflang="en"
+    data-language-option="en"
+    class="lang-switch__btn{% if current_lang == 'en' %} is-active{% endif %}"
+    {% if current_lang == 'en' %}aria-current="true"{% endif %}
+  >EN</a>
+  <span class="lang-switch__sep" aria-hidden="true">|</span>
+  <a
+    href="#"
+    lang="es"
+    hreflang="es"
+    data-language-option="es"
+    class="lang-switch__btn{% if current_lang == 'es' %} is-active{% endif %}"
+    {% if current_lang == 'es' %}aria-current="true"{% endif %}
+  >ES</a>
+</div>

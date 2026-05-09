@@ -1,0 +1,95 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+#
+# If you need help with YAML syntax, here are some quick references for you:
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+#
+# Site settings
+# These are used to personalize your site. Values are accessible in templates
+# via site.* variables.
+
+title: jblueprint.dev
+name: "Jorge Bluebird"
+email: ""
+description: >-
+  A bilingual Jekyll blog about software engineering, tools, and ideas.
+  Written in English and Spanish.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://jblueprint.dev" # the base hostname & protocol for your site
+
+# Minimal Mistakes theme settings
+theme: minimal-mistakes-jekyll
+minimal_mistakes_skin: default
+
+# Enable built-in Lunr search — renders the magnifying glass toggle in the masthead.
+search: true
+search_provider: lunr
+
+# Static BCP47 locale for MM's internal UI strings (date formats, accessibility labels).
+# DO NOT use for runtime locale detection — Polyglot's site.active_lang governs that.
+locale: en-US
+
+# Breadcrumbs must be disabled: MM breadcrumbs are not Polyglot locale-aware (R-005).
+breadcrumbs: false
+
+# Polyglot multilingual settings
+lang: en
+languages: ["en", "es"]
+default_lang: "en"
+parallel_localization: true
+
+# Files excluded from Polyglot localization (no locale-prefixed copies generated).
+# MM-generated assets replace the former minima asset entries.
+exclude_from_localization:
+  - .git/
+  - .github/
+  - .idea/
+  - .specify/
+  - .vscode/
+  - docs/
+  - specs/
+  # MM-generated static assets (R-002).
+  # Note: main.css is compiled from SCSS in the MM gem and is also output to /es/
+  # by Polyglot (known Polyglot + gem-SCSS behavior). Both locales load CSS correctly.
+  - assets/css/main.scss
+  - assets/css/main.css
+  - assets/js/main.min.js
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - vendor/
+  - node_modules/
+
+# Build settings
+plugins:
+  - jekyll-feed
+  - jekyll-polyglot
+
+# Suppress SASS deprecation warnings from MM gem dependencies (Dart Sass 3.0 compat warnings).
+# These originate in MM's vendored SCSS (breakpoint, susy, magnific-popup) and are not actionable.
+sass:
+  quiet_deps: true
+
+# Exclude from Jekyll processing entirely (not copied to _site).
+# specs/ is excluded to prevent Jekyll from processing spec markdown files
+# that contain MM-specific Liquid tags (include_cached) in code blocks.
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - specs/

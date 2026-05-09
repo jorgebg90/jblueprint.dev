@@ -1,0 +1,35 @@
+{%- assign translation_key = page.translation_key -%}
+{%- if translation_key -%}
+  {%- assign current_lang = page.lang | default: site.active_lang | default: 'en' -%}
+
+  {%- if page.translated_url -%}
+    {%- comment -%}
+      Posts with different slugs per language use translated_url from front matter.
+    {%- endcomment -%}
+    {%- if current_lang == 'en' -%}
+      {%- assign en_href = page.url -%}
+      {%- assign es_href = page.translated_url -%}
+    {%- else -%}
+      {%- assign en_href = page.translated_url -%}
+      {%- assign es_href = page.url -%}
+    {%- endif -%}
+  {%- else -%}
+    {%- comment -%}
+      Pages with same slug per language derive URLs by path prefix manipulation.
+    {%- endcomment -%}
+    {%- assign base_path = page.url | replace_first: '/es/', '/' -%}
+    {%- if page.url == '/es/' -%}
+      {%- assign base_path = '/' -%}
+    {%- endif -%}
+    {%- assign en_href = base_path -%}
+    {%- if base_path == '/' -%}
+      {%- assign es_href = '/es/' -%}
+    {%- else -%}
+      {%- assign es_href = '/es' | append: base_path -%}
+    {%- endif -%}
+  {%- endif -%}
+
+  <link rel="alternate" hreflang="en" href="{{ en_href }}">
+  <link rel="alternate" hreflang="es" href="{{ es_href }}">
+  <link rel="alternate" hreflang="x-default" href="{{ en_href }}">
+{%- endif -%}

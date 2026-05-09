@@ -1,0 +1,12 @@
+locales:
+  en:
+    code: en
+    label: English
+    url_prefix: ""
+    is_default: true
+  es:
+    code: es
+    label: Espanol
+    url_prefix: "/es"
+    is_default: false
+

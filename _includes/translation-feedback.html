@@ -1,0 +1,12 @@
+<div
+  id="translation-feedback"
+  class="translation-feedback"
+  role="status"
+  aria-live="polite"
+  hidden
+  data-message-en="{{ site.data.messages.translation_unavailable.en }}"
+  data-message-es="{{ site.data.messages.translation_unavailable.es }}"
+>
+  {{ site.data.messages.translation_unavailable[page.lang] | default: site.data.messages.translation_unavailable.en }}
+</div>
+
