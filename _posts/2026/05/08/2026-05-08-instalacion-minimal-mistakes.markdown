@@ -4,7 +4,8 @@ title: "Instalación de Minimal Mistakes en un blog Jekyll multilenguaje"
 date: 2026-05-08
 categories: jekyll theme minimal-mistakes
 lang: es
-permalink: /es/jekyll/theme/2026/05/08/instalacion-minimal-mistakes.html
+no_en_translation: true
+permalink: /jekyll/theme/2026/05/08/instalacion-minimal-mistakes.html
 ---
 
 Este post documenta la instalación del tema **Minimal Mistakes** sobre un blog Jekyll con soporte multilenguaje (`en` y `es`) basado en `jekyll-polyglot`.

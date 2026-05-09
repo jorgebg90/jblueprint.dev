@@ -3,6 +3,7 @@ layout: post
 title: "Installing Minimal Mistakes on a Bilingual Jekyll Blog"
 date: 2026-05-08
 lang: en
+no_es_translation: true
 translation_key: minimal-mistakes-integration
 categories: [jekyll, theme, minimal-mistakes]
 ---

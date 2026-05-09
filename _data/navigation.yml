@@ -1,13 +1,21 @@
 # MM masthead navigation — primary links displayed in the top bar.
-# Global-navigation literals use labels.<lang> keys and are resolved in _includes/masthead.html.
-# URLs use default-locale paths (no /es/ prefix).
-# The language switcher is injected separately via _layouts/default.html.
+# Labels and urls are locale-resolved in _includes/masthead.html.
 main:
-  - url: /
+  - urls:
+      en: /
+      es: /es/
     labels:
       en: "Home"
       es: "Inicio"
-  - url: /about/
+  - urls:
+      en: /posts/
+      es: /es/posts/
+    labels:
+      en: "Posts"
+      es: "Publicaciones"
+  - urls:
+      en: /about/
+      es: /es/about/
     labels:
       en: "About"
       es: "Acerca de"

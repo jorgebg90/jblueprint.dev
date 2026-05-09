@@ -1,34 +1,29 @@
 ---
 layout: default
 ---
+{%- assign active_lang = page.lang | default: site.active_lang | default: site.default_lang | default: 'en' -%}
+{%- assign default_posts_url = '/posts/' -%}
+{%- if active_lang == 'es' -%}
+  {%- assign default_posts_url = '/es/posts/' -%}
+{%- endif -%}
+
 <div class="home">
-  {%- if page.title -%}
-    <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
+  <section class="home-hero">
+    {%- if page.hero_title or page.title -%}
+      <h1 class="home-hero__title">{{ page.hero_title | default: page.title }}</h1>
+    {%- endif -%}
+
+    {%- if page.hero_intro -%}
+      <p class="home-hero__intro">{{ page.hero_intro }}</p>
+    {%- endif -%}
+
+    {%- assign cta_url = page.hero_cta_url | default: default_posts_url -%}
+    {%- if page.hero_cta_label -%}
+      <p class="home-hero__cta">
+        <a class="btn btn--primary" href="{{ cta_url | relative_url }}">{{ page.hero_cta_label }}</a>
+      </p>
+    {%- endif -%}
+  </section>
 
   {{ content }}
-
-  {%- assign lang_posts = site.posts | where: "lang", site.active_lang -%}
-  {%- if lang_posts.size > 0 -%}
-    <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
-    <ul class="post-list">
-      {%- for post in lang_posts -%}
-        <li>
-          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-          <h3>
-            <a class="post-link" href="{{ post.url | relative_url }}">
-              {{ post.title | escape }}
-            </a>
-          </h3>
-          {%- if post.excerpt -%}
-            <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 160 }}</p>
-          {%- endif -%}
-        </li>
-      {%- endfor -%}
-    </ul>
-
-    <p class="rss-subscribe">Subscribe <a href="{{ '/feed.xml' | relative_url }}">via RSS</a></p>
-  {%- else -%}
-    <p>No posts available for this language.</p>
-  {%- endif -%}
 </div>

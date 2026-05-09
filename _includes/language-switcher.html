@@ -1,36 +1,57 @@
 {%- assign current_lang = page.lang | default: site.active_lang | default: site.default_lang | default: 'en' -%}
-{%- assign translation_key = page.translation_key -%}
+{%- assign current_url = page.url | default: '/' -%}
 
-{%- assign en_target = '' -%}
-{%- assign es_target = '' -%}
-{%- assign has_en_equivalent = false -%}
-{%- assign has_es_equivalent = false -%}
+{%- comment -%}
+  Polyglot sets page.url to the permalink WITHOUT the locale prefix in all builds.
+  The locale prefix (/es/) is applied only to file output and href attributes, not to
+  page.url. Cross-locale page lookups via site.pages are also not possible because
+  Polyglot excludes the other locale's pages from site.pages during each locale build.
 
-{%- if translation_key -%}
-  {%- assign has_en_equivalent = true -%}
-  {%- assign has_es_equivalent = true -%}
+  URL targets are derived purely from page.url (permalink):
+    EN target = page.url          (default locale, no prefix needed)
+    ES target = /es + page.url    (Spanish locale prefix prepended)
 
-  {%- if current_lang == 'en' -%}
-    {%- assign en_target = page.url -%}
-    {%- if page.url == '/' -%}
-      {%- assign es_target = '/es/' -%}
-    {%- else -%}
-      {%- assign es_target = '/es' | append: page.url -%}
-    {%- endif -%}
-  {%- elsif current_lang == 'es' -%}
-    {%- if page.url == '/' -%}
-      {%- assign en_target = '/' -%}
-      {%- assign es_target = '/es/' -%}
-    {%- else -%}
-      {%- assign en_target = page.url -%}
-      {%- assign es_target = '/es' | append: page.url -%}
-    {%- endif -%}
-  {%- endif -%}
+  For posts with different slugs per locale, use `translated_url` in front matter:
+    translated_url: /path/to/translated/post.html
+  The switcher will use this URL directly and set data-translation-mode="explicit"
+  so JavaScript knows to trust the server-provided target.
+
+  To mark a page as not having a translation, add to its front matter:
+    no_es_translation: true
+    no_en_translation: true
+{%- endcomment -%}
+
+{%- assign has_en_equivalent = true -%}
+{%- assign has_es_equivalent = true -%}
+{%- assign translation_mode = 'computed' -%}
+
+{%- assign en_target = current_url -%}
+{%- if current_url == '/' -%}
+  {%- assign es_target = '/es/' -%}
 {%- else -%}
-  {%- assign has_en_equivalent = true -%}
+  {%- assign es_target = '/es' | append: current_url -%}
+{%- endif -%}
+
+{%- comment -%}
+  If the page has an explicit translated_url, use it for the other-locale target.
+  This is needed for posts where the slug differs between EN and ES.
+{%- endcomment -%}
+{%- if page.translated_url and page.translated_url != blank -%}
+  {%- assign translation_mode = 'explicit' -%}
+  {%- if current_lang == 'en' -%}
+    {%- assign es_target = page.translated_url -%}
+  {%- elsif current_lang == 'es' -%}
+    {%- assign en_target = page.translated_url -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- if page.no_es_translation -%}
   {%- assign has_es_equivalent = false -%}
-  {%- assign en_target = page.url -%}
-  {%- assign es_target = page.url | append: '?translation=unavailable&requested=es' -%}
+  {%- assign es_target = en_target | append: '?translation=unavailable&requested=es' -%}
+{%- endif -%}
+{%- if page.no_en_translation -%}
+  {%- assign has_en_equivalent = false -%}
+  {%- assign en_target = es_target | append: '?translation=unavailable&requested=en' -%}
 {%- endif -%}
 
 <!-- Language toggle — EN | ES integrated into MM masthead nav bar -->
@@ -44,6 +65,7 @@
   data-target-es="{{ es_target }}"
   data-has-equivalent-en="{{ has_en_equivalent }}"
   data-has-equivalent-es="{{ has_es_equivalent }}"
+  data-translation-mode="{{ translation_mode }}"
 >
   <a
     href="#"

@@ -1,33 +1,59 @@
 {% capture logo_path %}{{ site.logo }}{% endcapture %}
 {%- assign active_lang = page.lang | default: site.active_lang | default: site.default_lang | default: 'en' -%}
+{%- assign default_lang = site.default_lang | default: 'en' -%}
 {%- assign ui_text_data = site.data['ui-text'] | default: empty -%}
 {%- assign ui_text_active = ui_text_data[active_lang] | default: empty -%}
 {%- assign ui_text_en = ui_text_data.en | default: empty -%}
+{%- assign site_title_url = '/' -%}
+{%- if active_lang == 'es' -%}
+  {%- assign site_title_url = '/es/' -%}
+{%- endif -%}
 
 <div class="masthead">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav" aria-label="Primary navigation">
         {% unless logo_path == empty %}
-          <a class="site-logo" href="{{ '/' | relative_url }}"><img src="{{ logo_path | relative_url }}" alt="{{ site.masthead_title | default: site.title }}"></a>
+          <a class="site-logo" href="{{ site_title_url | relative_url }}"><img src="{{ logo_path | relative_url }}" alt="{{ site.masthead_title | default: site.title }}"></a>
         {% endunless %}
-        <a class="site-title" href="{{ '/' | relative_url }}">
+        <a class="site-title" href="{{ site_title_url | relative_url }}">
           {{ site.masthead_title | default: site.title | escape_once | strip }}
           {% if site.subtitle %}<span class="site-subtitle">{{ site.subtitle | escape_once | strip }}</span>{% endif %}
         </a>
         <ul class="visible-links">
           {%- for link in site.data.navigation.main -%}
-            {%- assign link_url = link.url -%}
+            {%- assign link_url = '' -%}
             {%- assign link_labels = link.labels | default: empty -%}
+            {%- assign link_urls = link.urls | default: empty -%}
             {%- assign link_label = link_labels[active_lang] | default: link_labels.en | default: link.title | default: '' -%}
-            {%- if active_lang == 'es' -%}
-              {%- unless link_url contains '/es/' -%}
-                {%- if link_url == '/' -%}
-                  {%- assign link_url = '/es/' -%}
-                {%- else -%}
-                  {%- assign link_url = '/es' | append: link_url -%}
+            {%- if link_urls != empty -%}
+              {%- assign link_url = link_urls[active_lang] | default: link_urls[default_lang] | default: link.url -%}
+            {%- else -%}
+              {%- assign link_url = link.url -%}
+            {%- endif -%}
+
+            {%- if link_url == blank -%}
+              {%- assign link_url = '/' -%}
+            {%- endif -%}
+
+            {%- if link_urls == empty -%}
+              {%- assign normalized_link_url = link_url -%}
+
+              {%- if active_lang == 'es' -%}
+                {%- unless normalized_link_url == '/es' or normalized_link_url contains '/es/' -%}
+                  {%- if normalized_link_url == '/' -%}
+                    {%- assign link_url = '/es/' -%}
+                  {%- else -%}
+                    {%- assign link_url = '/es' | append: normalized_link_url | append: '/' -%}
+                  {%- endif -%}
+                {%- endunless -%}
+              {%- else -%}
+                {%- if normalized_link_url == '/es' -%}
+                  {%- assign link_url = '/' -%}
+                {%- elsif normalized_link_url contains '/es/' -%}
+                  {%- assign link_url = normalized_link_url | replace_first: '/es', '' -%}
                 {%- endif -%}
-              {%- endunless -%}
+              {%- endif -%}
             {%- endif -%}
             <li class="masthead__menu-item">
               <a

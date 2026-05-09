@@ -78,6 +78,38 @@ html { font-size: 14px; }                          // MM default: 16px
 }
 
 // ---------------------------------------------------------------------------
+// Home hero and posts index presentation.
+// ---------------------------------------------------------------------------
+
+.home-hero {
+  margin-bottom: 1.5rem;
+
+  &__title {
+    margin-bottom: 0.75rem;
+  }
+
+  &__intro {
+    max-width: 56ch;
+    margin-bottom: 1rem;
+  }
+
+  &__cta {
+    margin-bottom: 0;
+  }
+}
+
+.posts-index {
+  &__header {
+    margin-bottom: 1rem;
+  }
+
+  &__empty-state {
+    font-style: italic;
+    color: $muted-text-color;
+  }
+}
+
+// ---------------------------------------------------------------------------
 // About page sidebar profile — render image as circular avatar in left column.
 // ---------------------------------------------------------------------------
 
