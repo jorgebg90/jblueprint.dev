@@ -1,0 +1,10 @@
+# MM masthead navigation — primary links displayed in the top bar.
+# All title values must be in English (constitution principle I).
+# URLs use default-locale paths (no /es/ prefix).
+# The language switcher is injected separately via _layouts/default.html.
+main:
+  - title: "Home"
+    url: /
+  - title: "About"
+    url: /about/
+

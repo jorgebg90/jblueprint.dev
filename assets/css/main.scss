@@ -1,0 +1,78 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough).
+# Overrides the gem-provided main.scss so this file lives in the project
+# source tree and can be excluded from Polyglot localization via
+# exclude_from_localization in _config.yml (research.md R-002).
+search: false
+---
+
+@charset "utf-8";
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
+@import "minimal-mistakes"; // main partials
+
+// ---------------------------------------------------------------------------
+// Typography — reduce post/page body text from MM defaults for a more compact
+// reading experience. MM scales html font-size up at breakpoints (16→18→20px);
+// we bring that down one step at each range.
+// ---------------------------------------------------------------------------
+
+html { font-size: 14px; }                          // MM default: 16px
+
+@media (min-width: 48em)  { html { font-size: 16px; } } // MM default: 18px
+@media (min-width: 64em)  { html { font-size: 17px; } } // MM default: 20px
+
+// ---------------------------------------------------------------------------
+// Language switcher — EN | ES toggle inside the MM masthead nav bar.
+// Styled to match the .search__toggle and greedy-nav button visual weight.
+// ---------------------------------------------------------------------------
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-left: 0.5em;
+  font-family: $sans-serif;
+  font-size: $type-size-6;   // matches MM's small masthead control size
+  font-weight: bold;
+  line-height: 1;
+
+  &__btn {
+    display: inline-block;
+    padding: 0.25em 0.35em;
+    color: $muted-text-color;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    border-radius: 3px;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: $link-color;
+      text-decoration: none;
+    }
+
+    &.is-active {
+      color: $text-color;
+      font-weight: bold;
+    }
+  }
+
+  &__sep {
+    color: $border-color;
+    padding: 0 1px;
+    user-select: none;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Translation feedback banner — shown inline below masthead by JS on fallback.
+// Uses a static color to avoid dependency on MM's $warning-color variable.
+// ---------------------------------------------------------------------------
+
+.translation-feedback {
+  padding: 0.5em 1em;
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  font-size: $type-size-6;
+  color: $text-color;
+}
