@@ -2,7 +2,7 @@
 {%- if translation_key -%}
   {%- assign current_lang = page.lang | default: site.active_lang | default: 'en' -%}
 
-  {%- if page.translated_url -%}
+  {%- if page.translated_url and page.translated_url != blank and page.translated_url != page.url -%}
     {%- comment -%}
       Posts with different slugs per language use translated_url from front matter.
     {%- endcomment -%}
