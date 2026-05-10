@@ -36,7 +36,7 @@
   If the page has an explicit translated_url, use it for the other-locale target.
   This is needed for posts where the slug differs between EN and ES.
 {%- endcomment -%}
-{%- if page.translated_url and page.translated_url != blank -%}
+{%- if page.translated_url and page.translated_url != blank and page.translated_url != current_url -%}
   {%- assign translation_mode = 'explicit' -%}
   {%- if current_lang == 'en' -%}
     {%- assign es_target = page.translated_url -%}

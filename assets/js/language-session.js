@@ -1,7 +1,7 @@
 (function () {
   var feedback = document.getElementById("translation-feedback");
   var profileImages = document.querySelectorAll("[data-profile-image]");
-  var languageSwitcher = document.querySelector("[data-language-switcher]");
+  var languageSwitchers = document.querySelectorAll("[data-language-switcher]");
 
   // Show translation-unavailable banner when redirected with ?translation=unavailable param.
   function showFeedbackIfNeeded() {
@@ -92,7 +92,7 @@
     return targetPath + (query ? "?" + query : "") + url.hash;
   }
 
-  function resolveSwitcherTarget(targetLang) {
+  function resolveSwitcherTarget(languageSwitcher, targetLang) {
     if (!languageSwitcher) return buildLocalePathFromCurrentUrl(targetLang);
 
     var dataAttribute = targetLang === "es" ? "data-target-es" : "data-target-en";
@@ -113,6 +113,10 @@
         // other locale (e.g. bilingual posts), so trust the server-provided target directly.
         return parsedServerTarget.pathname + parsedServerTarget.search + parsedServerTarget.hash;
       }
+
+      // For computed mode, prefer the server-rendered URL when available to avoid
+      // environment-specific path differences between local and production hosts.
+      return parsedServerTarget.pathname + parsedServerTarget.search + parsedServerTarget.hash;
     }
 
     // Default: compute target from current browser URL (works for pages with matching slugs).
@@ -122,19 +126,21 @@
   // Fix language switcher href buttons to use current URL-aware targets.
   // This keeps navigation stable across apex/www hostnames while cert propagation finishes.
   function fixLanguageSwitcherHrefs() {
-    if (!languageSwitcher) return;
+    if (!languageSwitchers.length) return;
 
-    var targetEn = resolveSwitcherTarget("en");
-    var targetEs = resolveSwitcherTarget("es");
+    languageSwitchers.forEach(function (languageSwitcher) {
+      var targetEn = resolveSwitcherTarget(languageSwitcher, "en");
+      var targetEs = resolveSwitcherTarget(languageSwitcher, "es");
 
-    var links = languageSwitcher.querySelectorAll("a[data-language-option]");
-    links.forEach(function (link) {
-      var lang = link.getAttribute("data-language-option");
-      if (lang === "en") {
-        link.href = targetEn;
-      } else if (lang === "es") {
-        link.href = targetEs;
-      }
+      var links = languageSwitcher.querySelectorAll("a[data-language-option]");
+      links.forEach(function (link) {
+        var lang = link.getAttribute("data-language-option");
+        if (lang === "en") {
+          link.href = targetEn;
+        } else if (lang === "es") {
+          link.href = targetEs;
+        }
+      });
     });
   }
 
