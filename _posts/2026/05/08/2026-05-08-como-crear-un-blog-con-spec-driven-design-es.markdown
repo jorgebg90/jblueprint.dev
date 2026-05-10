@@ -6,7 +6,7 @@ categories: jekyll speckit design
 lang: es
 translation_key: how-to-spec-driven-design
 translated_url: /jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html
-permalink: /jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html
+permalink: /es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html
 ---
 
 Crear un blog desde cero es una cosa. Crearlo *bien* con una metodología clara y trazable es otra.

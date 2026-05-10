@@ -1,9 +1,9 @@
 ---
 ---
-{%- assign active_lang = page.lang | default: site.active_lang | default: site.lang | default: 'en' -%}
+{%- assign site_lang = page.lang | default: site.default_lang | default: 'en' -%}
 
 <!doctype html>
-<html lang="{{ active_lang }}" class="no-js">
+<html lang="{{ site_lang }}" class="no-js">
   <head>
     {% include head.html %}
     {% include head/custom.html %}

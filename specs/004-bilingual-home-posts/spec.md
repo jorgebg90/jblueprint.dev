@@ -2,8 +2,21 @@
 
 **Feature Branch**: `004-bilingual-home-posts`  
 **Created**: 2026-05-09  
+**Updated**: 2026-05-09 — Architectural pivot: removed jekyll-polyglot; replaced with custom multilingual solution  
 **Status**: Ready for Implementation  
 **Input**: User description: "Actualiza la especificación specs/004-bilingual-home-posts/spec.md... Home EN/ES con banner + intro, sección de posts separada, filtrado por idioma sin duplicados, navegación/language-switch robustos con fallback"
+
+## Technical Context *(informational — non-binding)*
+
+This feature is implemented on a Jekyll blog that does **not** use jekyll-polyglot or any third-party multilingual plugin. The multilingual capability is provided by a custom solution built on Jekyll's native features:
+
+- **Locale detection**: determined by the page URL prefix — pages under `/es/` are Spanish; everything else is English.
+- **Language identity**: every page and post carries a `lang` front matter field (`en` or `es`) for explicit locale identification.
+- **Active-locale variable**: templates use a custom `site_lang` Liquid variable derived from `page.lang`, replacing the polyglot-specific `site.active_lang` global.
+- **Localized routes**: each locale page is explicitly authored with a `permalink` set in front matter; there is no automatic locale-variant generation.
+- **Spanish pages**: live under the `es/` folder structure, consistent with the existing site layout.
+
+This context informs reviewers and planners that multilingual behavior is fully explicit, predictable, and free of plugin side-effects.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -88,7 +101,14 @@ As a visitor, I want language switching to take me to the equivalent page when a
 
 - **CA-001**: Any implementation notes, config keys, and code comments in scope MUST be in English.
 - **CA-002**: Any behavior affecting Jekyll structure, front matter, rendering, or config MUST reference official Jekyll conventions.
-- **CA-003**: If non-standard Jekyll structure/plugin behavior is required, the spec MUST include explicit justification and rollback impact.
+- **CA-003**: The multilingual architecture MUST NOT use jekyll-polyglot or any third-party multilingual plugin. The custom solution (URL-prefix locale detection, `lang` front matter, `site_lang` Liquid variable, explicit `permalink`-based routes) is the sole mechanism for locale behavior. This constraint replaces the previously considered polyglot dependency, reducing external plugin surface and making locale resolution fully transparent and predictable. Rollback impact: reverting to any plugin-driven solution would require re-introducing plugin config and replacing all `page.lang`/`site_lang` references site-wide.
+
+### Architectural Constraints
+
+- **AC-001**: jekyll-polyglot MUST be removed from the project entirely — it MUST NOT appear in `Gemfile`, `_config.yml` plugins list, or any template logic.
+- **AC-002**: The active-locale context in templates MUST be derived from the `page.lang` front matter field via the custom `site_lang` variable; references to `site.active_lang` (polyglot's global) MUST NOT be used.
+- **AC-003**: Locale identification in routing MUST rely solely on URL prefix (`/es/` = Spanish, no prefix = English) and the `lang` front matter field; no plugin-managed locale injection is permitted.
+- **AC-004**: Each locale page MUST be explicitly authored; automatic locale-variant generation (as performed by polyglot) is out of scope and MUST NOT be relied upon.
 
 ### Functional Requirements
 
@@ -129,7 +149,10 @@ As a visitor, I want language switching to take me to the equivalent page when a
 ## Assumptions
 
 - English is the default language and Spanish is the localized language in current project scope.
+- jekyll-polyglot has been or will be removed from `Gemfile` and `_config.yml` as a prerequisite to implementing this feature; no polyglot APIs (`site.active_lang`, auto-generated locale variants) are available.
+- Locale context is determined at render time from `page.lang` front matter; every page and post in scope carries a valid `lang` value (`en` or `es`).
+- The custom `site_lang` Liquid variable is consistently computed from `page.lang` in all templates within this feature's scope.
 - Language metadata and translation-group metadata are editorially maintained for new and existing posts.
 - Translation-unavailable feedback already has an approved UX pattern that can be reused for this feature.
 - The feature focuses on visitor-facing behavior and excludes content authoring workflow redesign.
-- Existing bilingual navigation patterns remain the baseline and are extended, not replaced, by this feature.
+- Existing bilingual navigation patterns remain the baseline and are extended, not replaced, by this feature — with the exception that polyglot-driven locale variables are superseded by the custom approach.
