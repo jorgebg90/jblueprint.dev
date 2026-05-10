@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-{%- assign active_lang = page.lang | default: site.active_lang | default: site.default_lang | default: 'en' -%}
+{%- assign site_lang = page.lang | default: site.default_lang | default: 'en' -%}
 {%- assign seen_translation_keys = '|' -%}
 {%- assign has_visible_posts = false -%}
 {%- assign skipped_collision_count = 0 -%}
@@ -14,7 +14,7 @@ layout: default
   <ul class="post-list">
     {%- for post in site.posts -%}
       {%- assign post_lang = post.lang | default: '' | downcase -%}
-      {%- unless post_lang == active_lang -%}
+      {%- unless post_lang == site_lang -%}
         {%- continue -%}
       {%- endunless -%}
 
@@ -48,7 +48,7 @@ layout: default
 
   {%- unless has_visible_posts -%}
     {%- assign empty_messages = site.data.messages.posts_empty | default: empty -%}
-    <p class="posts-index__empty-state">{{ empty_messages[active_lang] | default: empty_messages.en | default: 'No posts available.' }}</p>
+    <p class="posts-index__empty-state">{{ page.empty_state_message | default: empty_messages[site_lang] | default: empty_messages.en | default: 'No posts available.' }}</p>
   {%- endunless -%}
 
   {%- if skipped_collision_count > 0 -%}

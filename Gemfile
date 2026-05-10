@@ -16,7 +16,6 @@ gem "minimal-mistakes-jekyll"
 # If you have any plugins, put them here!
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
-  gem "jekyll-polyglot", "~> 1.8"
   gem "jekyll-include-cache"
   gem "jekyll-remote-theme", "~> 0.4.3"
 end

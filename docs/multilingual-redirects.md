@@ -1,6 +1,6 @@
 # Multilingual Redirect Contract
 
-This project implements multilingual routing with `en` (default) and `es` using Jekyll + Polyglot.
+This project implements multilingual routing with explicit routes: `en` (default) and `es` (`/es/...`) using standard Jekyll pages/posts.
 
 ## Redirect Rules
 
@@ -13,18 +13,18 @@ Examples:
 - `/fr/about/` -> `/about/` (`301`)
 - `/de/jekyll/update/2026/05/08/welcome-to-jekyll.html` -> `/jekyll/update/2026/05/08/welcome-to-jekyll.html` (`301`)
 
-### 2) Missing Translation in Supported Locale -> 302
+### 2) Missing Translation in Language Switcher -> Safe Fallback Route
 
-Requests for a supported locale path (`/es/...`) that has no translated document MUST redirect temporarily (`302`) to the default-language equivalent URL and surface a translation-unavailable message.
+When the language switcher cannot resolve a counterpart by `translation_key`, it must navigate to a safe default-language route and surface a translation-unavailable message.
 
 Examples:
 
-- `/es/some-page-without-translation/` -> `/some-page-without-translation/?translation=unavailable&requested=es` (`302`)
-- `/es/category/legacy-post/` -> `/category/legacy-post/?translation=unavailable&requested=es` (`302`)
+- Page with no counterpart -> `/?translation=unavailable&requested=<lang>`
+- Post with no counterpart -> `/posts/?translation=unavailable&requested=<lang>`
 
 ## Hosting-Level Implementation Notes
 
-Jekyll generates static files and cannot issue HTTP status redirects by itself for arbitrary unknown paths. Configure these rules in the hosting platform (Nginx, Netlify, Cloudflare, Vercel, etc.) using the contracts above.
+Jekyll generates static files and cannot issue HTTP status redirects by itself for arbitrary unknown paths. Configure unsupported-locale prefix redirects in the hosting platform (Nginx, Netlify, Cloudflare, Vercel, etc.) using the contracts above.
 
 The query string (`translation=unavailable&requested=es`) is consumed client-side by `assets/js/language-session.js` and rendered by `_includes/translation-feedback.html`.
 

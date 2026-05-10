@@ -3,7 +3,7 @@ layout: page
 title: Acerca de
 lang: es
 translation_key: about
-permalink: /about/
+permalink: /es/about/
 classes: about-page
 sidebar:
   - title: Jorge Becerro
