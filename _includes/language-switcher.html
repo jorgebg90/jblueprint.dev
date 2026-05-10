@@ -45,6 +45,31 @@
   {%- endif -%}
 {%- endif -%}
 
+{%- comment -%}
+  Posts can reliably resolve cross-locale counterparts via translation_key lookup.
+  This avoids computed URL mismatches when slugs differ and translated_url is missing.
+{%- endcomment -%}
+{%- if page.collection == 'posts' and page.translation_key and translation_mode != 'explicit' -%}
+  {%- assign en_post = site.posts | where: 'translation_key', page.translation_key | where: 'lang', 'en' | first -%}
+  {%- assign es_post = site.posts | where: 'translation_key', page.translation_key | where: 'lang', 'es' | first -%}
+
+  {%- if en_post -%}
+    {%- assign en_target = en_post.url -%}
+  {%- endif -%}
+  {%- if es_post -%}
+    {%- assign es_target = es_post.url -%}
+  {%- endif -%}
+
+  {%- if en_post == nil -%}
+    {%- assign has_en_equivalent = false -%}
+    {%- assign en_target = es_target | append: '?translation=unavailable&requested=en' -%}
+  {%- endif -%}
+  {%- if es_post == nil -%}
+    {%- assign has_es_equivalent = false -%}
+    {%- assign es_target = en_target | append: '?translation=unavailable&requested=es' -%}
+  {%- endif -%}
+{%- endif -%}
+
 {%- if page.no_es_translation -%}
   {%- assign has_es_equivalent = false -%}
   {%- assign es_target = en_target | append: '?translation=unavailable&requested=es' -%}
