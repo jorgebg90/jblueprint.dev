@@ -61,6 +61,15 @@
    - Unsupported/unresolved locale-prefixed requests in scope resolve to valid default-language routes.
    - Covered fallback cases do not end in dead-end rendering.
 
+9. Validate production navigation directly against the live domain:
+
+   ```bash
+   python3 scripts/validate_production_navigation.py --base-url "https://jblueprint.dev"
+   ```
+
+   - Command must finish with `Result: PASSED`.
+   - Any failed route/target must block completion until fixed and redeployed.
+
 ## Completion Criteria
 
 - Build succeeds with no Jekyll errors.

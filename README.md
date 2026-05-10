@@ -31,3 +31,13 @@ Related docs:
 - `docs/multilingual-content-workflow.md`
 - `docs/multilingual-redirects.md`
 - `docs/multilingual-rollback.md`
+
+## Production navigation validation
+
+After deploying with your existing pipeline, run a live navigation check against production:
+
+```zsh
+python3 scripts/validate_production_navigation.py --base-url "https://jblueprint.dev"
+python3 scripts/validate_production_navigation.py --base-url "https://www.jblueprint.dev"
+```
+
