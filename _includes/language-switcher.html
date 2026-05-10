@@ -1,82 +1,110 @@
-{%- assign current_lang = page.lang | default: site.active_lang | default: site.default_lang | default: 'en' -%}
+{%- assign site_lang = page.lang | default: site.default_lang | default: 'en' -%}
 {%- assign current_url = page.url | default: '/' -%}
-
-{%- comment -%}
-  Polyglot sets page.url to the permalink WITHOUT the locale prefix in all builds.
-  The locale prefix (/es/) is applied only to file output and href attributes, not to
-  page.url. Cross-locale page lookups via site.pages are also not possible because
-  Polyglot excludes the other locale's pages from site.pages during each locale build.
-
-  URL targets are derived purely from page.url (permalink):
-    EN target = page.url          (default locale, no prefix needed)
-    ES target = /es + page.url    (Spanish locale prefix prepended)
-
-  For posts with different slugs per locale, use `translated_url` in front matter:
-    translated_url: /path/to/translated/post.html
-  The switcher will use this URL directly and set data-translation-mode="explicit"
-  so JavaScript knows to trust the server-provided target.
-
-  To mark a page as not having a translation, add to its front matter:
-    no_es_translation: true
-    no_en_translation: true
-{%- endcomment -%}
-
-{%- assign has_en_equivalent = true -%}
-{%- assign has_es_equivalent = true -%}
-{%- assign translation_mode = 'computed' -%}
+{%- assign translation_mode = 'counterpart' -%}
 
 {%- assign en_target = current_url -%}
+{%- assign es_target = current_url -%}
+{%- assign has_en_equivalent = true -%}
+{%- assign has_es_equivalent = true -%}
+
 {%- if current_url == '/' -%}
   {%- assign es_target = '/es/' -%}
+{%- elsif current_url == '/es/' -%}
+  {%- assign en_target = '/' -%}
+{%- elsif current_url == '/es' -%}
+  {%- assign en_target = '/' -%}
 {%- else -%}
-  {%- assign es_target = '/es' | append: current_url -%}
-{%- endif -%}
-
-{%- comment -%}
-  If the page has an explicit translated_url, use it for the other-locale target.
-  This is needed for posts where the slug differs between EN and ES.
-{%- endcomment -%}
-{%- if page.translated_url and page.translated_url != blank and page.translated_url != current_url -%}
-  {%- assign translation_mode = 'explicit' -%}
-  {%- if current_lang == 'en' -%}
-    {%- assign es_target = page.translated_url -%}
-  {%- elsif current_lang == 'es' -%}
-    {%- assign en_target = page.translated_url -%}
+  {%- assign normalized_current_url = current_url | replace: '//', '/' -%}
+  {%- if normalized_current_url == '/es' or normalized_current_url contains '/es/' -%}
+    {%- assign en_target = normalized_current_url | replace_first: '/es', '' -%}
+    {%- if en_target == '' -%}
+      {%- assign en_target = '/' -%}
+    {%- endif -%}
+  {%- else -%}
+    {%- assign es_target = '/es' | append: normalized_current_url -%}
   {%- endif -%}
 {%- endif -%}
 
-{%- comment -%}
-  Posts can reliably resolve cross-locale counterparts via translation_key lookup.
-  This avoids computed URL mismatches when slugs differ and translated_url is missing.
-{%- endcomment -%}
-{%- if page.collection == 'posts' and page.translation_key and translation_mode != 'explicit' -%}
+{%- assign en_match = nil -%}
+{%- assign es_match = nil -%}
+{%- if page.translation_key and page.translation_key != blank -%}
+  {%- assign en_page = site.pages | where: 'translation_key', page.translation_key | where: 'lang', 'en' | first -%}
+  {%- assign es_page = site.pages | where: 'translation_key', page.translation_key | where: 'lang', 'es' | first -%}
   {%- assign en_post = site.posts | where: 'translation_key', page.translation_key | where: 'lang', 'en' | first -%}
   {%- assign es_post = site.posts | where: 'translation_key', page.translation_key | where: 'lang', 'es' | first -%}
+  {%- assign en_match = en_page | default: en_post -%}
+  {%- assign es_match = es_page | default: es_post -%}
+{%- endif -%}
 
-  {%- if en_post -%}
-    {%- assign en_target = en_post.url -%}
-  {%- endif -%}
-  {%- if es_post -%}
-    {%- assign es_target = es_post.url -%}
-  {%- endif -%}
+{%- if en_match -%}
+  {%- assign en_target = en_match.url -%}
+{%- endif -%}
+{%- if es_match -%}
+  {%- assign es_target = es_match.url -%}
+{%- endif -%}
 
-  {%- if en_post == nil -%}
-    {%- assign has_en_equivalent = false -%}
-    {%- assign en_target = es_target | append: '?translation=unavailable&requested=en' -%}
+{%- if page.translated_url and page.translated_url != blank -%}
+  {%- if site_lang == 'en' and es_match == nil -%}
+    {%- assign es_target = page.translated_url -%}
+    {%- assign has_es_equivalent = true -%}
+  {%- elsif site_lang == 'es' and en_match == nil -%}
+    {%- assign en_target = page.translated_url -%}
+    {%- assign has_en_equivalent = true -%}
   {%- endif -%}
-  {%- if es_post == nil -%}
-    {%- assign has_es_equivalent = false -%}
-    {%- assign es_target = en_target | append: '?translation=unavailable&requested=es' -%}
-  {%- endif -%}
+{%- endif -%}
+
+{%- assign fallback_target = '/' -%}
+{%- if page.collection == 'posts' -%}
+  {%- assign fallback_target = '/posts/' -%}
+{%- endif -%}
+
+{%- assign has_translated_url = false -%}
+{%- if page.translated_url and page.translated_url != blank -%}
+  {%- assign has_translated_url = true -%}
+{%- endif -%}
+
+{%- assign can_use_translated_url_for_en = false -%}
+{%- if has_translated_url and site_lang == 'es' -%}
+  {%- assign can_use_translated_url_for_en = true -%}
+{%- endif -%}
+
+{%- assign can_use_translated_url_for_es = false -%}
+{%- if has_translated_url and site_lang == 'en' -%}
+  {%- assign can_use_translated_url_for_es = true -%}
+{%- endif -%}
+
+{%- if en_match == nil and can_use_translated_url_for_en == false -%}
+  {%- assign has_en_equivalent = false -%}
+  {%- assign en_target = fallback_target | append: '?translation=unavailable&requested=en' -%}
+  {%- assign translation_mode = 'fallback' -%}
+{%- endif -%}
+
+{%- if es_match == nil and can_use_translated_url_for_es == false -%}
+  {%- assign has_es_equivalent = false -%}
+  {%- assign es_target = fallback_target | append: '?translation=unavailable&requested=es' -%}
+  {%- assign translation_mode = 'fallback' -%}
+{%- endif -%}
+
+{%- if page.no_en_translation -%}
+  {%- assign has_en_equivalent = false -%}
+  {%- assign en_target = fallback_target | append: '?translation=unavailable&requested=en' -%}
+  {%- assign translation_mode = 'fallback' -%}
 {%- endif -%}
 
 {%- if page.no_es_translation -%}
   {%- assign has_es_equivalent = false -%}
-  {%- assign es_target = en_target | append: '?translation=unavailable&requested=es' -%}
+  {%- assign es_target = fallback_target | append: '?translation=unavailable&requested=es' -%}
+  {%- assign translation_mode = 'fallback' -%}
 {%- endif -%}
-{%- if page.no_en_translation -%}
-  {%- assign has_en_equivalent = false -%}
-  {%- assign en_target = es_target | append: '?translation=unavailable&requested=en' -%}
+
+{%- if site_lang == 'en' -%}
+  {%- assign has_en_equivalent = true -%}
+  {%- assign en_target = current_url -%}
+{%- endif -%}
+
+{%- if site_lang == 'es' -%}
+  {%- assign has_es_equivalent = true -%}
+  {%- assign es_target = current_url -%}
 {%- endif -%}
 
 <!-- Language toggle — EN | ES integrated into MM masthead nav bar -->
@@ -85,7 +113,7 @@
   role="navigation"
   aria-label="Language"
   data-language-switcher
-  data-current-lang="{{ current_lang }}"
+  data-current-lang="{{ site_lang }}"
   data-target-en="{{ en_target }}"
   data-target-es="{{ es_target }}"
   data-has-equivalent-en="{{ has_en_equivalent }}"
@@ -97,8 +125,8 @@
     lang="en"
     hreflang="en"
     data-language-option="en"
-    class="lang-switch__btn{% if current_lang == 'en' %} is-active{% endif %}"
-    {% if current_lang == 'en' %}aria-current="true"{% endif %}
+    class="lang-switch__btn{% if site_lang == 'en' %} is-active{% endif %}"
+    {% if site_lang == 'en' %}aria-current="true"{% endif %}
   >EN</a>
   <span class="lang-switch__sep" aria-hidden="true">|</span>
   <a
@@ -106,7 +134,7 @@
     lang="es"
     hreflang="es"
     data-language-option="es"
-    class="lang-switch__btn{% if current_lang == 'es' %} is-active{% endif %}"
-    {% if current_lang == 'es' %}aria-current="true"{% endif %}
+    class="lang-switch__btn{% if site_lang == 'es' %} is-active{% endif %}"
+    {% if site_lang == 'es' %}aria-current="true"{% endif %}
   >ES</a>
 </div>

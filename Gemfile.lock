@@ -86,8 +86,6 @@ GEM
     jekyll-include-cache (0.2.1)
       jekyll (>= 3.7, < 5.0)
     jekyll-paginate (1.1.0)
-    jekyll-polyglot (1.12.0)
-      jekyll (>= 4.0, >= 3.0)
     jekyll-remote-theme (0.4.3)
       addressable (~> 2.0)
       jekyll (>= 3.5, < 5.0)
@@ -200,7 +198,6 @@ DEPENDENCIES
   jekyll (~> 4.4.1)
   jekyll-feed (~> 0.12)
   jekyll-include-cache
-  jekyll-polyglot (~> 1.8)
   jekyll-remote-theme (~> 0.4.3)
   minimal-mistakes-jekyll
   tzinfo (>= 1, < 3)
@@ -247,7 +244,6 @@ CHECKSUMS
   jekyll-gist (1.5.0) sha256=495b6483552a3e2975a2752964ea7acddd545bc6e13ce2be15a50cec8d4c9f0f
   jekyll-include-cache (0.2.1) sha256=c7d4b9e551732a27442cb2ce853ba36a2f69c66603694b8c1184c99ab1a1a205
   jekyll-paginate (1.1.0) sha256=880aadf4b02529a93541d508c5cbb744f014cbfc071d0263a31f25ec9066eb64
-  jekyll-polyglot (1.12.0) sha256=7cf0ebabe79722f9d570aa6befb509543ea1d706962f99f55a42bec60d8808d9
   jekyll-remote-theme (0.4.3) sha256=d3fde726484fb3df04de9e347baf75aaa3d5bfea771a330412e0c52608e54b40
   jekyll-sass-converter (3.0.0) sha256=e2e7674f186e906b9d99b8066e13f9b4d5cb9f806d36f7bc8cf2610053d8c902
   jekyll-sitemap (1.4.0) sha256=0de08c5debc185ea5a8f980e1025c7cd3f8e0c35c8b6ef592f15c46235cf4218

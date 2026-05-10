@@ -1,9 +1,9 @@
 ---
 layout: default
 ---
-{%- assign active_lang = page.lang | default: site.active_lang | default: site.default_lang | default: 'en' -%}
+{%- assign site_lang = page.lang | default: site.default_lang | default: 'en' -%}
 {%- assign default_posts_url = '/posts/' -%}
-{%- if active_lang == 'es' -%}
+{%- if site_lang == 'es' -%}
   {%- assign default_posts_url = '/es/posts/' -%}
 {%- endif -%}
 
@@ -24,6 +24,22 @@ layout: default
       </p>
     {%- endif -%}
   </section>
+
+  {%- if page.show_inline_posts != false -%}
+    {%- assign inline_posts = site.posts | where: 'lang', site_lang -%}
+    {%- if inline_posts.size > 0 -%}
+      <ul class="post-list">
+        {%- for post in inline_posts -%}
+          <li>
+            <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+            <h2>
+              <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+            </h2>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  {%- endif -%}
 
   {{ content }}
 </div>
