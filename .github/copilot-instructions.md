@@ -1,5 +1,5 @@
 <!-- SPECKIT START -->
 For additional context about technologies to be used, project structure,
 shell commands, and other important information, read the current plan:
-`specs/004-bilingual-home-posts/plan.md`
+`specs/005-reorganize-site-languages/plan.md`
 <!-- SPECKIT END -->

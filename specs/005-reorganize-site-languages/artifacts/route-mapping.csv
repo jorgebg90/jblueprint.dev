@@ -1,0 +1,13 @@
+old_route,new_route,strategy,priority,verified,release_decision,notes
+/,/,direct-serve,critical,true,go,Validated by local route suite and production navigation check
+/about/,/about/,direct-serve,critical,true,go,Validated by local route suite and production navigation check
+/posts/,/posts/,direct-serve,critical,true,go,Validated by local route suite and production navigation check
+/es/,/es/,direct-serve,critical,true,go,Validated by local route suite and production navigation check
+/es/about/,/es/about/,direct-serve,critical,true,go,Validated by local route suite and production navigation check
+/es/posts/,/es/posts/,direct-serve,critical,true,go,Validated by local route suite and production navigation check
+/jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html,/jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html,direct-serve,high,true,go,Validated by local route suite and production navigation check
+/es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html,/es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html,direct-serve,high,true,go,Validated by local route suite and production navigation check
+/jekyll/theme/2026/05/08/installing-minimal-mistakes-on-a-bilingual-jekyll-blog.html,/jekyll/theme/2026/05/08/installing-minimal-mistakes-on-a-bilingual-jekyll-blog.html,direct-serve,normal,false,pending,English-only post continuity
+/jekyll/theme/2026/05/08/instalacion-minimal-mistakes.html,/es/jekyll/theme/2026/05/08/instalacion-minimal-mistakes.html,redirect,normal,false,pending,Deprecated unprefixed ES legacy route redirected to canonical ES route
+
+

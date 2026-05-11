@@ -1,0 +1,13 @@
+id,content_type,lang,source_path,target_path,current_permalink,target_permalink,translation_key,migration_state
+home,page,en,index.markdown,site/en/index.markdown,/,/,home,validated
+about,page,en,about.markdown,site/en/about.markdown,/about/,/about/,about,validated
+posts-index,page,en,posts/index.markdown,site/en/posts/index.markdown,/posts/,/posts/,posts-index,validated
+home,page,es,es/index.markdown,site/es/index.markdown,/es/,/es/,home,validated
+about,page,es,es/about.markdown,site/es/about.markdown,/es/about/,/es/about/,about,validated
+posts-index,page,es,es/posts/index.markdown,site/es/posts/index.markdown,/es/posts/,/es/posts/,posts-index,validated
+how-to-spec-driven-design-en,post,en,_posts/2026/05/08/2026-05-08-como-crear-un-blog-con-spec-driven-design.markdown,site/en/_posts/2026/05/08/2026-05-08-como-crear-un-blog-con-spec-driven-design.markdown,/jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html,/jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html,how-to-spec-driven-design,validated
+how-to-spec-driven-design-es,post,es,_posts/2026/05/08/2026-05-08-como-crear-un-blog-con-spec-driven-design-es.markdown,site/es/_posts/2026/05/08/2026-05-08-como-crear-un-blog-con-spec-driven-design-es.markdown,/es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html,/es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html,how-to-spec-driven-design,validated
+minimal-mistakes-integration,post,en,_posts/2026/05/08/2026-05-08-minimal-mistakes-integration.md,site/en/_posts/2026/05/08/2026-05-08-minimal-mistakes-integration.md,/jekyll/theme/2026/05/08/installing-minimal-mistakes-on-a-bilingual-jekyll-blog.html,/jekyll/theme/2026/05/08/installing-minimal-mistakes-on-a-bilingual-jekyll-blog.html,minimal-mistakes-integration,validated
+minimal-mistakes-install-es,post,es,_posts/2026/05/08/2026-05-08-instalacion-minimal-mistakes.markdown,site/es/_posts/2026/05/08/2026-05-08-instalacion-minimal-mistakes.markdown,/es/jekyll/theme/2026/05/08/instalacion-minimal-mistakes.html,/es/jekyll/theme/2026/05/08/instalacion-minimal-mistakes.html,minimal-mistakes-integration,validated
+
+
