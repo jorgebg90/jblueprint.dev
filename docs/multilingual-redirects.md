@@ -4,6 +4,13 @@ This project implements multilingual routing with explicit routes: `en` (default
 
 ## Redirect Rules
 
+Canonical routes that must be directly served (no redirect):
+
+- `/`, `/about/`, `/posts/`
+- `/es/`, `/es/about/`, `/es/posts/`
+- `/jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html`
+- `/es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html`
+
 ### 1) Unsupported Locale Prefix -> 301
 
 Requests with unsupported prefixes MUST redirect permanently (`301`) to the default-language equivalent path.
@@ -12,6 +19,7 @@ Examples:
 
 - `/fr/about/` -> `/about/` (`301`)
 - `/de/jekyll/update/2026/05/08/welcome-to-jekyll.html` -> `/jekyll/update/2026/05/08/welcome-to-jekyll.html` (`301`)
+- `/jekyll/theme/2026/05/08/instalacion-minimal-mistakes.html` -> `/es/jekyll/theme/2026/05/08/instalacion-minimal-mistakes.html` (`301`)
 
 ### 2) Missing Translation in Language Switcher -> Safe Fallback Route
 
