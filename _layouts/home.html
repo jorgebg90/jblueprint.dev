@@ -8,7 +8,8 @@ layout: default
 {%- endif -%}
 
 <div class="home">
-  <section class="home-hero">
+  <!-- Hero Section: Dominant, emphasis-forward -->
+  <section class="home-hero home-hero--emphasized section-container">
     {%- if page.hero_title or page.title -%}
       <h1 class="home-hero__title">{{ page.hero_title | default: page.title }}</h1>
     {%- endif -%}
@@ -20,26 +21,37 @@ layout: default
     {%- assign cta_url = page.hero_cta_url | default: default_posts_url -%}
     {%- if page.hero_cta_label -%}
       <p class="home-hero__cta">
-        <a class="btn btn--primary" href="{{ cta_url | relative_url }}">{{ page.hero_cta_label }}</a>
+        <a class="btn btn--primary btn--prominent" href="{{ cta_url | relative_url }}">{{ page.hero_cta_label }}</a>
       </p>
     {%- endif -%}
   </section>
 
+  <!-- Visual Divider: Clear boundary before content -->
+  <div class="divider--subtle"></div>
+
+  <!-- Primary Content Section -->
+  {%- if content -%}
+    <section class="home-content-section section-container">
+      {{ content }}
+    </section>
+  {%- endif -%}
+
+  <!-- Posts Section: Secondary focal area -->
   {%- if page.show_inline_posts != false -%}
     {%- assign inline_posts = site.posts | where: 'lang', site_lang -%}
     {%- if inline_posts.size > 0 -%}
-      <ul class="post-list">
-        {%- for post in inline_posts -%}
-          <li>
-            <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-            <h2>
-              <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-            </h2>
-          </li>
-        {%- endfor -%}
-      </ul>
+      <section class="home-posts-section section-container">
+        <ul class="post-list">
+          {%- for post in inline_posts -%}
+            <li>
+              <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+              <h2>
+                <a class="post-link interactive" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+              </h2>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </section>
     {%- endif -%}
   {%- endif -%}
-
-  {{ content }}
 </div>
