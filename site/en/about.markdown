@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 lang: en
 translation_key: about
-classes: about-page
+classes: about-page about-en
 sidebar:
   - title: Jorge Becerro
     image: /assets/images/profile-pic.jpg
@@ -12,12 +12,15 @@ sidebar:
     text: |
       Software engineer focused on building practical developer platforms and bilingual knowledge resources.
 
-      **Location:** Vigo, ES  
-      **LinkedIn:** [jorgebg90](https://www.linkedin.com/in/jorgebg90/)
-      **Github:** [jorgebg90](https://github.com/jorgebg90/)
+      **Location:** Vigo, ES
+
+      **<i class="fab fa-linkedin"></i>** [linkedin.com/in/jorgebg90](https://www.linkedin.com/in/jorgebg90/)
+
+      **<i class="fab fa-github"></i>** [github.com/jorgebg90](https://github.com/jorgebg90/)
 ---
 
-On this blog I share implementation notes, migration playbooks, and lessons learned while working with cloud tooling,
-automation pipelines, and maintainable software systems.
+<div class="about-intro-section">
+  <p>On this blog I share implementation notes, migration playbooks, and lessons learned while working with cloud tooling, automation pipelines, and maintainable software systems.</p>
+</div>
 
 
