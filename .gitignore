@@ -15,6 +15,13 @@ vendor/ruby/
 # Logs and environment files
 *.log
 .env*
+!specs/**/artifacts/validation/*.log
+
+# Python tooling artifacts
+__pycache__/
+*.pyc
+.venv/
+venv/
 
 # Editor and OS noise
 .DS_Store

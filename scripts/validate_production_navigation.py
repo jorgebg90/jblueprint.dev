@@ -33,7 +33,7 @@ class ValidationIssue:
     message: str
 
 
-SWITCHER_DIV_RE = re.compile(r"<div[^>]*data-language-switcher[^>]*>", re.IGNORECASE)
+SWITCHER_DIV_RE = re.compile(r"<div[^>]*data-language-switcher[^>]*>", re.IGNORECASE | re.DOTALL)
 ATTR_RE = re.compile(r"([:\w-]+)=(\"([^\"]*)\"|'([^']*)')")
 TITLE_RE = re.compile(r"<title>(.*?)</title>", re.IGNORECASE | re.DOTALL)
 
@@ -152,11 +152,19 @@ def main() -> int:
             path="/jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html",
             expected_lang="en",
         ),
+        PageExpectation(
+            path="/jekyll/theme/2026/05/08/installing-minimal-mistakes-on-a-bilingual-jekyll-blog.html",
+            expected_lang="en",
+        ),
         PageExpectation(path="/es/", expected_lang="es"),
         PageExpectation(path="/es/about/", expected_lang="es"),
         PageExpectation(path="/es/posts/", expected_lang="es"),
         PageExpectation(
             path="/es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html",
+            expected_lang="es",
+        ),
+        PageExpectation(
+            path="/es/jekyll/theme/2026/05/08/instalacion-minimal-mistakes.html",
             expected_lang="es",
         ),
     ]
