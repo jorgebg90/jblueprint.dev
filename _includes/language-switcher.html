@@ -2,28 +2,10 @@
 {%- assign current_url = page.url | default: '/' -%}
 {%- assign translation_mode = 'counterpart' -%}
 
-{%- assign en_target = current_url -%}
-{%- assign es_target = current_url -%}
+{%- assign en_target = '/' -%}
+{%- assign es_target = '/es/' -%}
 {%- assign has_en_equivalent = true -%}
 {%- assign has_es_equivalent = true -%}
-
-{%- if current_url == '/' -%}
-  {%- assign es_target = '/es/' -%}
-{%- elsif current_url == '/es/' -%}
-  {%- assign en_target = '/' -%}
-{%- elsif current_url == '/es' -%}
-  {%- assign en_target = '/' -%}
-{%- else -%}
-  {%- assign normalized_current_url = current_url | replace: '//', '/' -%}
-  {%- if normalized_current_url == '/es' or normalized_current_url contains '/es/' -%}
-    {%- assign en_target = normalized_current_url | replace_first: '/es', '' -%}
-    {%- if en_target == '' -%}
-      {%- assign en_target = '/' -%}
-    {%- endif -%}
-  {%- else -%}
-    {%- assign es_target = '/es' | append: normalized_current_url -%}
-  {%- endif -%}
-{%- endif -%}
 
 {%- assign en_match = nil -%}
 {%- assign es_match = nil -%}
@@ -58,6 +40,11 @@
   {%- assign fallback_target = '/posts/' -%}
 {%- endif -%}
 
+{%- assign fallback_target_es = '/es/' -%}
+{%- if page.collection == 'posts' -%}
+  {%- assign fallback_target_es = '/es/posts/' -%}
+{%- endif -%}
+
 {%- assign has_translated_url = false -%}
 {%- if page.translated_url and page.translated_url != blank -%}
   {%- assign has_translated_url = true -%}
@@ -81,7 +68,7 @@
 
 {%- if es_match == nil and can_use_translated_url_for_es == false -%}
   {%- assign has_es_equivalent = false -%}
-  {%- assign es_target = fallback_target | append: '?translation=unavailable&requested=es' -%}
+  {%- assign es_target = fallback_target_es | append: '?translation=unavailable&requested=es' -%}
   {%- assign translation_mode = 'fallback' -%}
 {%- endif -%}
 
@@ -93,7 +80,7 @@
 
 {%- if page.no_es_translation -%}
   {%- assign has_es_equivalent = false -%}
-  {%- assign es_target = fallback_target | append: '?translation=unavailable&requested=es' -%}
+  {%- assign es_target = fallback_target_es | append: '?translation=unavailable&requested=es' -%}
   {%- assign translation_mode = 'fallback' -%}
 {%- endif -%}
 
