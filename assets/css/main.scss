@@ -140,6 +140,7 @@ html { font-size: 14px; }                          // MM default: 16px
 
 .home-hero {
   margin-bottom: $section-spacing;
+  text-align: center;
 
   // Emphasized state — applies to primary hero
   &--emphasized {
@@ -160,22 +161,37 @@ html { font-size: 14px; }                          // MM default: 16px
     line-height: $rhythm-tight;
     letter-spacing: $letter-spacing-tight;
     margin-bottom: $space-token-2x;
+    margin-left: auto;
+    margin-right: auto;
     color: $contrast-text-primary;
     word-spacing: 0.1em; // Improve readability for longer titles
+    max-width: none;
   }
 
   &__intro {
     font-size: 1.125em;  // ~18px at 16px base
     line-height: $rhythm-body;
-    max-width: 56ch;
+    width: 100%;
+    max-width: 46rem;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: $space-token-3x;
     color: $contrast-text-primary;
+    text-align: justify;
+    white-space: pre-line;
   }
 
   &__cta {
-    margin-bottom: 0;
-    margin-top: $space-token-2-5x;
+    width: 100%;
+    max-width: 46rem;
+    margin: $space-token-2-5x auto 0;
+    text-align: left;
+    padding: 0;
   }
+}
+
+.home-hero__cta .btn {
+  display: inline-block;
 }
 
 // CTA button emphasis — prominent styling with hover/focus feedback
@@ -880,8 +896,99 @@ strong a {
   &__img {
     display: block;
     width: 100%;
-    height: 25vh;
+    height: 12.5vh;
     object-fit: cover;
     object-position: center center;
   }
 }
+
+// ---------------------------------------------------------------------------
+// Posts Index — lighter separators and improved visual rhythm
+// ---------------------------------------------------------------------------
+
+.posts-index {
+  &__header {
+    margin-bottom: $space-token-4x;
+    padding-bottom: $space-token-2x;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .page-title {
+    margin: 0;
+    line-height: $rhythm-tight;
+  }
+
+  .post-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-list li {
+    margin: 0;
+    padding: $space-token-3x 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  .post-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    margin-bottom: $space-token-1x;
+    font-size: 0.9em;
+    color: $contrast-text-secondary;
+  }
+
+  h2 {
+    margin: 0 0 $space-token-1x 0;
+    line-height: $rhythm-tight;
+    font-size: 1.25em;
+  }
+
+  .post-link {
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+
+  .post-excerpt {
+    margin: 0;
+    max-width: 68ch;
+    line-height: $rhythm-body;
+    color: $contrast-text-primary;
+  }
+
+  &__empty-state {
+    padding-top: $space-token-2x;
+    color: $contrast-text-secondary;
+  }
+}
+
+@media (min-width: 48em) {
+  .posts-index {
+    &__header {
+      margin-bottom: $space-token-5x;
+    }
+
+    .post-list li {
+      padding: $space-token-4x 0;
+    }
+
+    h2 {
+      font-size: 1.375em;
+    }
+  }
+}
+
