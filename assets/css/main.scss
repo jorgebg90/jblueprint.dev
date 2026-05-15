@@ -869,14 +869,18 @@ strong a {
 // ---------------------------------------------------------------------------
 
 .home-banner {
-  width: 100%;
+  // Full-bleed: break out of MM's central content column
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   overflow: hidden;
   margin-bottom: 0;
 
   &__img {
     display: block;
     width: 100%;
-    height: 25vh;       // 1/4 of the viewport height
+    height: 25vh;
     object-fit: cover;
     object-position: center center;
   }
