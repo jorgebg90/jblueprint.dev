@@ -10,6 +10,8 @@ hero_title: Construye mejor software con claridad
 hero_intro: Notas prácticas sobre arquitectura, pensamiento de producto y disciplina de implementación para equipos modernos.
 hero_cta_label: Ver publicaciones
 hero_cta_url: /es/posts/
+hero_image: /assets/images/banner_home.png
+hero_image_alt: jblueprint.dev banner
 ---
 
 <div class="home-content">
