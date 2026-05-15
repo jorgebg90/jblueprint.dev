@@ -1,0 +1,15 @@
+/* Hotfix overrides loaded after main.css to avoid stale style caches in production. */
+
+.home-banner__img {
+  height: clamp(72px, 10vh, 120px);
+}
+
+.posts-index__header {
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.posts-index .post-list li {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+}
+
