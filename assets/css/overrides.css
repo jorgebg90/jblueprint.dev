@@ -1,7 +1,7 @@
 /* Hotfix overrides loaded after main.css to avoid stale style caches in production. */
 
 .home-banner__img {
-  height: clamp(72px, 10vh, 120px);
+  height: clamp(120px, 15vh, 200px);
 }
 
 .posts-index__header {
@@ -11,5 +11,40 @@
 
 .posts-index .post-list li {
   border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+/* About page: layout sidebar + content as two-column grid */
+.page__inner-wrap {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.page__inner-wrap > .sidebar {
+  grid-column: 1;
+}
+
+.page__inner-wrap > .page__content {
+  grid-column: 2;
+}
+
+.page__inner-wrap > header {
+  grid-column: 1 / -1;
+}
+
+.page__inner-wrap > footer {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 600px) {
+  .page__inner-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .page__inner-wrap > .sidebar,
+  .page__inner-wrap > .page__content {
+    grid-column: 1;
+  }
 }
 
