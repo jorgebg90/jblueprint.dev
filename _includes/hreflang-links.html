@@ -20,16 +20,18 @@
   {%- endif -%}
 
   {%- if en_href == nil or es_href == nil -%}
-    {%- assign base_path = page.url | replace_first: '/es/', '/' -%}
-    {%- if page.url == '/es/' or page.url == '/es' -%}
-      {%- assign base_path = '/' -%}
+    {%- assign fallback_en = '/' -%}
+    {%- assign fallback_es = '/es/' -%}
+    {%- if page.collection == 'posts' -%}
+      {%- assign fallback_en = '/posts/' -%}
+      {%- assign fallback_es = '/es/posts/' -%}
     {%- endif -%}
 
     {%- if en_href == nil -%}
       {%- if site_lang == 'es' and page.translated_url and page.translated_url != blank -%}
         {%- assign en_href = page.translated_url -%}
       {%- else -%}
-        {%- assign en_href = base_path -%}
+        {%- assign en_href = fallback_en -%}
       {%- endif -%}
     {%- endif -%}
 
@@ -37,11 +39,7 @@
       {%- if site_lang == 'en' and page.translated_url and page.translated_url != blank -%}
         {%- assign es_href = page.translated_url -%}
       {%- else -%}
-        {%- if base_path == '/' -%}
-          {%- assign es_href = '/es/' -%}
-        {%- else -%}
-          {%- assign es_href = '/es' | append: base_path -%}
-        {%- endif -%}
+        {%- assign es_href = fallback_es -%}
       {%- endif -%}
     {%- endif -%}
   {%- endif -%}

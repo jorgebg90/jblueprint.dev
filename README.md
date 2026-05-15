@@ -11,7 +11,12 @@ Project governance is defined in `.specify/memory/constitution.md`.
 
 ## Bilingual Content Workflow (en/es)
 
-This site uses `jekyll-polyglot` with `en` as default and `es` under `/es/`.
+This site uses a language-first content layout with canonical routes for `en` and `es`.
+
+Source structure:
+
+- `site/en/` for English pages and `site/en/_posts/` for English posts
+- `site/es/` for Spanish pages and `site/es/_posts/` for Spanish posts
 
 For every bilingual page or post variant, include at least:
 
@@ -20,11 +25,12 @@ For every bilingual page or post variant, include at least:
 
 Authoring checklist:
 
-1. Add/update English variant (`lang: en`) with canonical unprefixed route.
-2. Add/update Spanish variant (`lang: es`) using the same `translation_key`.
+1. Add/update English variant (`lang: en`) under `site/en/` with canonical unprefixed route.
+2. Add/update Spanish variant (`lang: es`) under `site/es/` using the same `translation_key`.
 3. Keep permalinks aligned for equivalent pages when route parity is required.
 4. Run `bundle exec jekyll build` and verify outputs under `_site/` and `_site/es/`.
-5. Verify alternate metadata (`hreflang`, `x-default`) for bilingual pages.
+5. Run `python3 scripts/validate_local_routes.py --site-dir _site`.
+6. Verify alternate metadata (`hreflang`, `x-default`) for bilingual pages.
 
 Related docs:
 

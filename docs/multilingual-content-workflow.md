@@ -1,6 +1,6 @@
 # Multilingual Content Workflow
 
-This guide describes how to maintain bilingual content in English (`en`) and Spanish (`es`) using Jekyll + Polyglot.
+This guide describes how to maintain bilingual content in English (`en`) and Spanish (`es`) using Jekyll with language-first source folders.
 
 ## Required Front Matter Keys
 
@@ -16,9 +16,11 @@ Recommended keys:
 
 ## File Placement Rules
 
-- English static pages remain at project root (`index.markdown`, `about.markdown`, etc.).
-- Spanish static pages live under `es/` with matching front matter.
-- Posts remain in `_posts/` and are paired by `translation_key`.
+- English static pages must live under `site/en/`.
+- Spanish static pages must live under `site/es/`.
+- English posts must live under `site/en/_posts/YYYY/MM/DD/`.
+- Spanish posts must live under `site/es/_posts/YYYY/MM/DD/`.
+- Keep EN and ES variants paired by `translation_key`.
 
 ## Translation Pairing Rules
 

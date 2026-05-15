@@ -3,4 +3,9 @@
 # MM does not provide a post.html layout; single.html is MM's equivalent for blog posts.
 layout: single
 ---
+<p class="post-reading-time" id="reading-time-badge" aria-label="Estimated reading time"></p>
+
 {{ content }}
+
+<script src="{{ '/assets/js/reading-time.js' | relative_url }}" defer></script>
+

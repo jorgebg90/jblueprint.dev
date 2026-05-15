@@ -1,0 +1,16 @@
+# Pre-move local route validation (captured in feature workspace)
+Timestamp: 2026-05-10T18:01:21Z
+
+Validating local routes in: /Users/jorgebg/development/repo/blog/jblueprint.dev/_site
+- / -> /Users/jorgebg/development/repo/blog/jblueprint.dev/_site/index.html
+- /about/ -> /Users/jorgebg/development/repo/blog/jblueprint.dev/_site/about/index.html
+- /posts/ -> /Users/jorgebg/development/repo/blog/jblueprint.dev/_site/posts/index.html
+- /jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html -> /Users/jorgebg/development/repo/blog/jblueprint.dev/_site/jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html
+- /jekyll/theme/2026/05/08/installing-minimal-mistakes-on-a-bilingual-jekyll-blog.html -> /Users/jorgebg/development/repo/blog/jblueprint.dev/_site/jekyll/theme/2026/05/08/installing-minimal-mistakes-on-a-bilingual-jekyll-blog.html
+- /es/ -> /Users/jorgebg/development/repo/blog/jblueprint.dev/_site/es/index.html
+- /es/about/ -> /Users/jorgebg/development/repo/blog/jblueprint.dev/_site/es/about/index.html
+- /es/posts/ -> /Users/jorgebg/development/repo/blog/jblueprint.dev/_site/es/posts/index.html
+- /es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html -> /Users/jorgebg/development/repo/blog/jblueprint.dev/_site/es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html
+- /es/jekyll/theme/2026/05/08/instalacion-minimal-mistakes.html -> /Users/jorgebg/development/repo/blog/jblueprint.dev/_site/es/jekyll/theme/2026/05/08/instalacion-minimal-mistakes.html
+
+Result: PASSED

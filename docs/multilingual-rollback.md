@@ -1,46 +1,41 @@
 # Multilingual Rollback Guide
 
-Use this guide to safely roll back multilingual support if plugin or configuration changes must be reverted.
+Use this guide to safely roll back the language-first source migration (`site/en`, `site/es`) if critical regressions appear.
 
-## 1) Plugin and Config Rollback
+## 1) Config and Template Rollback
 
-1. Remove `jekyll-polyglot` from `Gemfile`.
-2. Run `bundle install` to refresh `Gemfile.lock`.
-3. Revert multilingual keys in `_config.yml`:
-   - `languages`
-   - `default_lang`
-   - `parallel_localization`
-   - `exclude_from_localization`
-4. Keep baseline Jekyll config (`theme`, `plugins`) valid.
-
-## 2) Layout and Include Rollback
-
-1. Remove multilingual overrides from `_layouts/default.html`.
-2. Remove multilingual includes:
-   - `_includes/hreflang-links.html`
+1. Restore `_config.yml` from the latest known-good checkpoint (`checkpoint-a` or `checkpoint-b`).
+2. Restore navigation/layout includes:
+   - `_data/navigation.yml`
+   - `_includes/masthead.html`
    - `_includes/language-switcher.html`
-   - `_includes/translation-feedback.html`
-3. Remove session helper script `assets/js/language-session.js` and script reference.
+   - `_includes/hreflang-links.html`
+3. Keep baseline Jekyll config (`theme`, `plugins`) valid.
 
-## 3) Content Rollback
+## 2) Content Path Rollback
 
-1. Remove or archive Spanish content variants under `es/` and `_posts/`.
-2. Remove multilingual metadata (`lang`, `translation_key`) only if reverting to monolingual behavior.
-3. Keep canonical English routes unchanged to avoid breaking existing links.
+1. Restore legacy root paths if needed:
+   - `index.markdown`, `about.markdown`, `posts/index.markdown`
+   - `es/index.markdown`, `es/about.markdown`, `es/posts/index.markdown`
+   - `_posts/YYYY/MM/DD/*`
+2. Remove or archive migrated language-first roots:
+   - `site/en/`
+   - `site/es/`
 
-## 4) Documentation Rollback
+## 3) Documentation Rollback
 
 Update or remove multilingual docs:
 
 - `docs/multilingual-content-workflow.md`
 - `docs/multilingual-redirects.md`
-- `specs/001-add-multilingual-support/quickstart.md`
+- `specs/005-reorganize-site-languages/artifacts/`
 
-## 5) Validation Gate
+## 4) Validation Gate
 
 Run final build verification after rollback:
 
 - `bundle exec jekyll build`
+- `python3 scripts/validate_local_routes.py --site-dir _site`
 
 Expected result: site builds successfully with stable default-language routes.
 

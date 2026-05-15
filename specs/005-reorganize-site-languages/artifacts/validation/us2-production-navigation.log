@@ -1,0 +1,37 @@
+# US2 production navigation validation
+Timestamp: 2026-05-10T18:02:10Z
+
+
+Navigation checks:
+- / -> HTTP 200
+- / [en] -> / => HTTP 200
+- / [es] -> /es/ => HTTP 200
+- /about/ -> HTTP 200
+- /about/ [en] -> /about/ => HTTP 200
+- /about/ [es] -> /es/about/ => HTTP 200
+- /posts/ -> HTTP 200
+- /posts/ [en] -> /posts/ => HTTP 200
+- /posts/ [es] -> /es/posts/ => HTTP 200
+- /jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html -> HTTP 200
+- /jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html [en] -> /jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html => HTTP 200
+- /jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html [es] -> /es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html => HTTP 200
+- /jekyll/theme/2026/05/08/installing-minimal-mistakes-on-a-bilingual-jekyll-blog.html -> HTTP 404
+- /es/ -> HTTP 200
+- /es/ [en] -> / => HTTP 200
+- /es/ [es] -> /es/ => HTTP 200
+- /es/about/ -> HTTP 200
+- /es/about/ [en] -> /about/ => HTTP 200
+- /es/about/ [es] -> /es/about/ => HTTP 200
+- /es/posts/ -> HTTP 200
+- /es/posts/ [en] -> /posts/ => HTTP 200
+- /es/posts/ [es] -> /es/posts/ => HTTP 200
+- /es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html -> HTTP 200
+- /es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html [en] -> /jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html => HTTP 200
+- /es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html [es] -> /es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html => HTTP 200
+- /es/jekyll/theme/2026/05/08/instalacion-minimal-mistakes.html -> HTTP 404
+
+Validation issues:
+- /jekyll/theme/2026/05/08/installing-minimal-mistakes-on-a-bilingual-jekyll-blog.html: Expected HTTP 200 but got 404
+- /es/jekyll/theme/2026/05/08/instalacion-minimal-mistakes.html: Expected HTTP 200 but got 404
+
+Result: FAILED (2 issue(s))
