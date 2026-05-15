@@ -29,8 +29,8 @@ url: "https://jblueprint.dev" # the base hostname & protocol for your site
 remote_theme: "mmistakes/minimal-mistakes"
 minimal_mistakes_skin: default
 
-# Enable built-in Lunr search — renders the magnifying glass toggle in the masthead.
-search: true
+# Disable built-in search to hide the magnifying glass toggle in the masthead.
+search: false
 search_provider: lunr
 
 # Static BCP47 locale for MM's internal UI strings (date formats, accessibility labels).
