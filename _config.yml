@@ -29,6 +29,10 @@ url: "https://jblueprint.dev" # the base hostname & protocol for your site
 remote_theme: "mmistakes/minimal-mistakes"
 minimal_mistakes_skin: default
 
+# Hide atom feed autodiscovery <link> from <head> and the feed icon from masthead/footer.
+atom_feed:
+  hide: true
+
 # Disable built-in search to hide the magnifying glass toggle in the masthead.
 search: false
 search_provider: lunr
@@ -59,7 +63,6 @@ defaults:
 
 # Build settings
 plugins:
-  - jekyll-feed
   - jekyll-include-cache
   - jekyll-remote-theme
 
