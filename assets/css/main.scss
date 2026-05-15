@@ -969,7 +969,8 @@ strong a {
   &__img {
     display: block;
     width: 100%;
-    height: 12.5vh;
+    // Keep banner compact on large monitors while remaining responsive.
+    height: clamp(72px, 10vh, 120px);
     object-fit: cover;
     object-position: center center;
   }
@@ -983,9 +984,9 @@ strong a {
   &__header {
     margin-bottom: $space-token-4x;
     padding: $space-token-3x;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.16);
     border-radius: 4px;
-    background-color: $contrast-bg-section;
+    background-color: rgba(0, 0, 0, 0.03);
   }
 
   .page-title {
@@ -1009,7 +1010,7 @@ strong a {
   .post-list li {
     margin: 0;
     padding: $space-token-3x 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.16);
 
     &:first-child {
       padding-top: 0;
