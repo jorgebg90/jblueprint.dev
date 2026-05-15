@@ -5,6 +5,7 @@ lang: en
 translation_key: posts-index
 permalink: /posts/
 nav_label: Posts
+intro: A chronological archive of notes, lessons learned, and practical implementations around architecture, backend engineering, and developer tooling.
 empty_state_message: No posts are available in this language yet.
 ---
 

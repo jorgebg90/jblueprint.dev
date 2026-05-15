@@ -8,6 +8,13 @@ layout: default
 {%- endif -%}
 
 <div class="home">
+  <!-- Banner image — optional, set hero_image in page front matter -->
+  {%- if page.hero_image -%}
+    <div class="home-banner">
+      <img src="{{ page.hero_image | relative_url }}" alt="{{ page.hero_image_alt | default: '' }}" class="home-banner__img">
+    </div>
+  {%- endif -%}
+
   <!-- Hero Section: Dominant, emphasis-forward -->
   <section class="home-hero home-hero--emphasized section-container">
     {%- if page.hero_title or page.title -%}
@@ -15,7 +22,7 @@ layout: default
     {%- endif -%}
 
     {%- if page.hero_intro -%}
-      <p class="home-hero__intro">{{ page.hero_intro }}</p>
+      <div class="home-hero__intro">{{ page.hero_intro | escape_once }}</div>
     {%- endif -%}
 
     {%- assign cta_url = page.hero_cta_url | default: default_posts_url -%}

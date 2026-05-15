@@ -75,9 +75,58 @@ $card-padding:        $space-token-3x;   // Internal padding for section contain
 // ---------------------------------------------------------------------------
 
 html { font-size: 14px; }                          // MM default: 16px
+html { scrollbar-gutter: stable; }
+
+@supports not (scrollbar-gutter: stable) {
+  html {
+    overflow-y: scroll;
+  }
+}
 
 @media (min-width: 48em)  { html { font-size: 16px; } } // MM default: 18px
 @media (min-width: 64em)  { html { font-size: 17px; } } // MM default: 20px
+
+// ---------------------------------------------------------------------------
+// Skip links accessibility: keep out of layout flow to avoid masthead jumps.
+// ---------------------------------------------------------------------------
+
+.skip-links {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  pointer-events: none;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .screen-reader-shortcut {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .screen-reader-shortcut:focus,
+  .screen-reader-shortcut:active {
+    left: 0.75rem;
+    top: 0.75rem;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    padding: 0.5rem 0.75rem;
+    pointer-events: auto;
+    background: $contrast-bg-primary;
+    border: 1px solid $contrast-border-default;
+    border-radius: 3px;
+    text-decoration: none;
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Language switcher — EN | ES toggle inside the MM masthead nav bar.
@@ -90,8 +139,8 @@ html { font-size: 14px; }                          // MM default: 16px
   gap: 0;
   margin-left: 0.5em;
   font-family: $sans-serif;
-  font-size: $type-size-6;   // matches MM's small masthead control size
-  font-weight: bold;
+  font-size: 1em;
+  font-weight: 500;
   line-height: 1;
 
   &__btn {
@@ -110,7 +159,7 @@ html { font-size: 14px; }                          // MM default: 16px
 
     &.is-active {
       color: $text-color;
-      font-weight: bold;
+      font-weight: 600;
     }
   }
 
@@ -140,6 +189,7 @@ html { font-size: 14px; }                          // MM default: 16px
 
 .home-hero {
   margin-bottom: $section-spacing;
+  text-align: center;
 
   // Emphasized state — applies to primary hero
   &--emphasized {
@@ -160,22 +210,37 @@ html { font-size: 14px; }                          // MM default: 16px
     line-height: $rhythm-tight;
     letter-spacing: $letter-spacing-tight;
     margin-bottom: $space-token-2x;
+    margin-left: auto;
+    margin-right: auto;
     color: $contrast-text-primary;
     word-spacing: 0.1em; // Improve readability for longer titles
+    max-width: none;
   }
 
   &__intro {
     font-size: 1.125em;  // ~18px at 16px base
     line-height: $rhythm-body;
-    max-width: 56ch;
+    width: 100%;
+    max-width: 46rem;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: $space-token-3x;
     color: $contrast-text-primary;
+    text-align: justify;
+    white-space: pre-line;
   }
 
   &__cta {
-    margin-bottom: 0;
-    margin-top: $space-token-2-5x;
+    width: 100%;
+    max-width: 46rem;
+    margin: $space-token-2-5x auto 0;
+    text-align: left;
+    padding: 0;
   }
+}
+
+.home-hero__cta .btn {
+  display: inline-block;
 }
 
 // CTA button emphasis — prominent styling with hover/focus feedback
@@ -692,8 +757,32 @@ a {
 // Ensure consistent masthead/nav height across all pages
 .greedy-nav {
   align-items: center;
-  min-height: 3.5em;
+  min-height: 3.75em;
 }
+
+// Keep masthead controls with identical vertical rhythm to avoid per-page visual jumps.
+.greedy-nav .visible-links a,
+.greedy-nav .lang-switch__btn,
+.greedy-nav .site-title {
+  line-height: 1.2;
+}
+
+.greedy-nav .lang-switch {
+  align-self: center;
+}
+
+.greedy-nav .lang-switch__btn,
+.greedy-nav .lang-switch__sep {
+  display: inline-flex;
+  align-items: center;
+}
+
+// Global content offset below masthead divider for every layout.
+#main {
+  padding-top: $space-token-2x;
+}
+
+
 
 // Link color adjustment — from blue to neutral accent
 a {
@@ -864,3 +953,125 @@ strong a {
 }
 
 // ---------------------------------------------------------------------------
+// Home — Banner Image
+// Full-width banner displayed above the hero section on the home page.
+// ---------------------------------------------------------------------------
+
+.home-banner {
+  // Full-bleed: break out of MM's central content column
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  margin-bottom: 0;
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: 12.5vh;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Posts Index — lighter separators and improved visual rhythm
+// ---------------------------------------------------------------------------
+
+.posts-index {
+  &__header {
+    margin-bottom: $space-token-4x;
+    padding: $space-token-3x;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    background-color: $contrast-bg-section;
+  }
+
+  .page-title {
+    margin: 0 0 $space-token-1-5x 0;
+    line-height: $rhythm-tight;
+  }
+
+  &__intro {
+    margin: 0;
+    max-width: 68ch;
+    line-height: $rhythm-body;
+    color: $contrast-text-secondary;
+  }
+
+  .post-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-list li {
+    margin: 0;
+    padding: $space-token-3x 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  .post-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    margin-bottom: $space-token-1x;
+    font-size: 0.9em;
+    color: $contrast-text-secondary;
+  }
+
+  h2 {
+    margin: 0 0 $space-token-1x 0;
+    line-height: $rhythm-tight;
+    font-size: 1.25em;
+  }
+
+  .post-link {
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+
+  .post-excerpt {
+    margin: 0;
+    max-width: 68ch;
+    line-height: $rhythm-body;
+    color: $contrast-text-primary;
+  }
+
+  &__empty-state {
+    padding-top: $space-token-2x;
+    color: $contrast-text-secondary;
+  }
+}
+
+@media (min-width: 48em) {
+  .posts-index {
+    &__header {
+      margin-bottom: $space-token-5x;
+      padding: $space-token-4x;
+    }
+
+    .post-list li {
+      padding: $space-token-4x 0;
+    }
+
+    h2 {
+      font-size: 1.375em;
+    }
+  }
+}
+

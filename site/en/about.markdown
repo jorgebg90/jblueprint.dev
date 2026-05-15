@@ -8,7 +8,7 @@ classes: about-page about-en
 sidebar:
   - title: Jorge Becerro
     image: /assets/images/profile-pic.jpg
-    image_alt: Portrait of Jorge Becerro
+    image_alt: Personal image
     text: |
       Backend software architect specialized in real-time integration technologies.
       Passionate about AI applied to software development, with experience in technical leadership and mentoring.
