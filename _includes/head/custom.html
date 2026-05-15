@@ -1,7 +1,7 @@
 {%- include hreflang-links.html -%}
 
-<!-- Cache-busting stylesheet include to avoid stale CDN/browser CSS after design updates. -->
-<link rel="stylesheet" href="{{ '/assets/css/main.css?v=20260515-2' | relative_url }}">
+<!-- Load post-main hotfixes from a separate static file to avoid stale main.css caches. -->
+<link rel="stylesheet" href="{{ '/assets/css/overrides.css?v=20260515-3' | relative_url }}">
 
 <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/images/favicon-32x32.png' | relative_url }}">
 <link rel="icon" type="image/png" sizes="64x64" href="{{ '/assets/images/favicon.png' | relative_url }}">
