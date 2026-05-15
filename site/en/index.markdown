@@ -14,9 +14,4 @@ hero_image: /assets/images/banner_home.png
 hero_image_alt: jblueprint.dev banner
 ---
 
-<div class="home-content">
-  <div class="home-intro-block home-intro-block--primary">
-    <p>Welcome to jblueprint.dev.</p>
-  </div>
-</div>
 
