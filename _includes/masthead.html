@@ -37,14 +37,15 @@
             {%- endif -%}
 
             {%- if link_urls == empty -%}
-              {%- assign normalized_link_url = link_url -%}
+              {%- assign normalized_link_url = link_url | replace: '//', '/' -%}
+              {%- assign normalized_link_url = normalized_link_url | replace: '/index.html', '/' -%}
 
               {%- if site_lang == 'es' -%}
                 {%- unless normalized_link_url == '/es' or normalized_link_url contains '/es/' -%}
                   {%- if normalized_link_url == '/' -%}
                     {%- assign link_url = '/es/' -%}
                   {%- else -%}
-                    {%- assign link_url = '/es' | append: normalized_link_url | append: '/' -%}
+                    {%- assign link_url = '/es' | append: normalized_link_url -%}
                   {%- endif -%}
                 {%- endunless -%}
               {%- else -%}

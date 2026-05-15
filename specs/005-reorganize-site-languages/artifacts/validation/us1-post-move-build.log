@@ -1,0 +1,31 @@
+# US1 post-move build log
+Timestamp: 2026-05-10T18:01:28Z
+
+Configuration file: /Users/jorgebg/development/repo/blog/jblueprint.dev/_config.yml
+      Remote Theme: Using theme mmistakes/minimal-mistakes
+            Source: /Users/jorgebg/development/repo/blog/jblueprint.dev
+       Destination: /Users/jorgebg/development/repo/blog/jblueprint.dev/_site
+ Incremental build: disabled. Enable with --incremental
+      Generating... 
+      Remote Theme: Using theme mmistakes/minimal-mistakes
+       Jekyll Feed: Generating feed for posts
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+3 │ @import "minimal-mistakes/skins/default"; // skin
+  │         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    /Users/jorgebg/development/repo/blog/jblueprint.dev/assets/css/main.scss 3:9  root stylesheet
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+4 │ @import "minimal-mistakes"; // main partials
+  │         ^^^^^^^^^^^^^^^^^^
+  ╵
+    /Users/jorgebg/development/repo/blog/jblueprint.dev/assets/css/main.scss 4:9  root stylesheet
+                    done in 0.929 seconds.
+ Auto-regeneration: disabled. Use --watch to enable.

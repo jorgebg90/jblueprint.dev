@@ -2,14 +2,18 @@
 permalink: /404.html
 layout: page
 title: "Page Not Found"
-classes: wide
+classes: wide error-page-404
 ---
 
-<div class="page__content" style="text-align:center; padding: 3rem 1rem;">
-  <h1 style="font-size: 4em; margin-bottom: 0.5rem;">404</h1>
-  <p><strong>Page not found</strong></p>
-  <p>The requested page could not be found.</p>
-  <p><a href="{{ '/' | relative_url }}">Go to home</a></p>
+<div class="error-container">
+  <div class="error-content">
+    <h1 class="error-code">404</h1>
+    <p class="error-message"><strong>Page not found</strong></p>
+    <p class="error-description">The requested page could not be found.</p>
+    <p class="error-cta">
+      <a href="{{ '/' | relative_url }}" class="btn btn--primary btn--prominent btn--recovery">Go to home</a>
+    </p>
+  </div>
 </div>
 
 <script>

@@ -1,4 +1,5 @@
 # MM masthead navigation — primary links displayed in the top bar.
+# Canonical route contract: /, /about/, /posts/, /es/, /es/about/, /es/posts/.
 # Labels and urls are locale-resolved in _includes/masthead.html.
 main:
   - urls:

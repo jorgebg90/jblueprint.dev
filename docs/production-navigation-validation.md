@@ -2,6 +2,12 @@
 
 Use this checker to validate bilingual navigation directly against the live site.
 
+Before running production checks, validate local build output first:
+
+```zsh
+python3 scripts/validate_local_routes.py --site-dir _site
+```
+
 ## What it checks
 
 - Critical EN and ES routes return HTTP 200.
@@ -24,4 +30,13 @@ python3 scripts/validate_production_navigation.py --base-url "https://www.jbluep
 ```
 
 The command exits with code `1` when any validation fails.
+
+## Canonical validation scope
+
+- `/`, `/about/`, `/posts/`
+- `/es/`, `/es/about/`, `/es/posts/`
+- `/jekyll/speckit/2026/05/08/how-to-build-a-blog-with-spec-driven-design.html`
+- `/es/jekyll/speckit/2026/05/08/como-crear-un-blog-con-spec-driven-design.html`
+- `/jekyll/theme/2026/05/08/installing-minimal-mistakes-on-a-bilingual-jekyll-blog.html`
+- `/es/jekyll/theme/2026/05/08/instalacion-minimal-mistakes.html`
 
