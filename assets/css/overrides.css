@@ -14,37 +14,43 @@
 }
 
 /* About page: layout sidebar + content as two-column grid */
-.page__inner-wrap {
+.about-page .page__inner-wrap {
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: 2rem;
   align-items: start;
 }
 
-.page__inner-wrap > .sidebar {
+.about-page .page__inner-wrap > .sidebar {
   grid-column: 1;
 }
 
-.page__inner-wrap > .page__content {
+.about-page .page__inner-wrap > .page__content {
   grid-column: 2;
 }
 
-.page__inner-wrap > header {
+.about-page .page__inner-wrap > header {
   grid-column: 1 / -1;
 }
 
-.page__inner-wrap > footer {
+.about-page .page__inner-wrap > footer {
   grid-column: 1 / -1;
 }
 
 @media (max-width: 600px) {
-  .page__inner-wrap {
+  .about-page .page__inner-wrap {
     grid-template-columns: 1fr;
   }
 
-  .page__inner-wrap > .sidebar,
-  .page__inner-wrap > .page__content {
+  .about-page .page__inner-wrap > .sidebar,
+  .about-page .page__inner-wrap > .page__content {
     grid-column: 1;
   }
+}
+
+/* Posts: expand width to use more available space */
+.layout--post .page__inner-wrap,
+.layout--post .page__content {
+  max-width: 100%;
 }
 
