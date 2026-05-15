@@ -75,9 +75,58 @@ $card-padding:        $space-token-3x;   // Internal padding for section contain
 // ---------------------------------------------------------------------------
 
 html { font-size: 14px; }                          // MM default: 16px
+html { scrollbar-gutter: stable; }
+
+@supports not (scrollbar-gutter: stable) {
+  html {
+    overflow-y: scroll;
+  }
+}
 
 @media (min-width: 48em)  { html { font-size: 16px; } } // MM default: 18px
 @media (min-width: 64em)  { html { font-size: 17px; } } // MM default: 20px
+
+// ---------------------------------------------------------------------------
+// Skip links accessibility: keep out of layout flow to avoid masthead jumps.
+// ---------------------------------------------------------------------------
+
+.skip-links {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  pointer-events: none;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .screen-reader-shortcut {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .screen-reader-shortcut:focus,
+  .screen-reader-shortcut:active {
+    left: 0.75rem;
+    top: 0.75rem;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    padding: 0.5rem 0.75rem;
+    pointer-events: auto;
+    background: $contrast-bg-primary;
+    border: 1px solid $contrast-border-default;
+    border-radius: 3px;
+    text-decoration: none;
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Language switcher — EN | ES toggle inside the MM masthead nav bar.
@@ -90,8 +139,8 @@ html { font-size: 14px; }                          // MM default: 16px
   gap: 0;
   margin-left: 0.5em;
   font-family: $sans-serif;
-  font-size: $type-size-6;   // matches MM's small masthead control size
-  font-weight: bold;
+  font-size: 1em;
+  font-weight: 500;
   line-height: 1;
 
   &__btn {
@@ -110,7 +159,7 @@ html { font-size: 14px; }                          // MM default: 16px
 
     &.is-active {
       color: $text-color;
-      font-weight: bold;
+      font-weight: 600;
     }
   }
 
@@ -708,8 +757,32 @@ a {
 // Ensure consistent masthead/nav height across all pages
 .greedy-nav {
   align-items: center;
-  min-height: 3.5em;
+  min-height: 3.75em;
 }
+
+// Keep masthead controls with identical vertical rhythm to avoid per-page visual jumps.
+.greedy-nav .visible-links a,
+.greedy-nav .lang-switch__btn,
+.greedy-nav .site-title {
+  line-height: 1.2;
+}
+
+.greedy-nav .lang-switch {
+  align-self: center;
+}
+
+.greedy-nav .lang-switch__btn,
+.greedy-nav .lang-switch__sep {
+  display: inline-flex;
+  align-items: center;
+}
+
+// Global content offset below masthead divider for every layout.
+#main {
+  padding-top: $space-token-2x;
+}
+
+
 
 // Link color adjustment — from blue to neutral accent
 a {
@@ -909,13 +982,22 @@ strong a {
 .posts-index {
   &__header {
     margin-bottom: $space-token-4x;
-    padding-bottom: $space-token-2x;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: $space-token-3x;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    background-color: $contrast-bg-section;
   }
 
   .page-title {
-    margin: 0;
+    margin: 0 0 $space-token-1-5x 0;
     line-height: $rhythm-tight;
+  }
+
+  &__intro {
+    margin: 0;
+    max-width: 68ch;
+    line-height: $rhythm-body;
+    color: $contrast-text-secondary;
   }
 
   .post-list {
@@ -980,6 +1062,7 @@ strong a {
   .posts-index {
     &__header {
       margin-bottom: $space-token-5x;
+      padding: $space-token-4x;
     }
 
     .post-list li {

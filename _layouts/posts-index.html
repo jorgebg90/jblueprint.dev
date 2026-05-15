@@ -9,10 +9,14 @@ layout: default
 <div class="posts-index">
   <header class="posts-index__header">
     <h1 class="page-title">{{ page.title | default: 'Posts' }}</h1>
+    {%- if page.intro -%}
+      <p class="posts-index__intro">{{ page.intro }}</p>
+    {%- endif -%}
   </header>
 
   <ul class="post-list">
-    {%- for post in site.posts -%}
+    {%- assign ordered_posts = site.posts | reverse -%}
+    {%- for post in ordered_posts -%}
       {%- assign post_lang = post.lang | default: '' | downcase -%}
       {%- unless post_lang == site_lang -%}
         {%- continue -%}

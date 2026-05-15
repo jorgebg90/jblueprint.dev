@@ -6,7 +6,7 @@ translation_key: home
 permalink: /
 show_inline_posts: false
 classes: home-en
-hero_title: Welcome to jBlueprint!
+hero_title: Welcome to jBlueprint.dev
 hero_intro: |-
   This space is dedicated to sharing practical notes on architecture, design patterns, and the disciplines that define quality software engineering, with a primary focus on the backend ecosystem.
 
